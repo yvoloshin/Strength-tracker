@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
    root 'workouts#index'
 
+   resources :workout_types
+   resources :workouts
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
