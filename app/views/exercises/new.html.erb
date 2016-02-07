@@ -1,0 +1,9 @@
+<h2>Enter Exercises</h2>
+
+  <%= simple_form_for([@workout_type, :exercises]) do |f| %>
+	  <% @exercises.each do |exercise| %>
+      <%= workout_type_form.fields_for exercise, index: exercise.id do |exercise_form|%>
+        <%= exercise_form.text_field :name %>
+      <% end %>
+	  <% end %>
+  <% end %>
