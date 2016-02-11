@@ -6,12 +6,12 @@ class WorkoutTypesController < ApplicationController
 
 	def new
 		@workout_type = WorkoutType.new
-		@exercises = 10.times { @workout_type.exercises.build }
+		@exercise_types = 10.times { @workout_type.exercise_types.build }
 	end
 
 	def create
 		@workout_type = WorkoutType.create(workout_type_params)
-		@exercises = Exercise.create(params[:exercise_attributes])
+		#@exercise_types = ExerciseTypes.create(params[:exercises_attributes])
 		if @workout_type.valid?
 			redirect_to root_path
 		else
@@ -20,7 +20,7 @@ class WorkoutTypesController < ApplicationController
 	end
 
 	def workout_type_params
-		params.require(:workout_type).permit(:type_name, exercise_attributes: [:name, :sets, :reps, :load])
+		params.require(:workout_type).permit(:type_name, exercise_types_attributes: [:name, :sets, :reps, :load])
 	end
 
 	def exercise_params
