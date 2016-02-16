@@ -3,6 +3,16 @@
 	<% @workout_types.each do |workout_type| %>
 		<div class="booyah-box col-xs-10 col-xs-offset-1">
 			<%= workout_type.type_name %><br />
-			<%= link_to 'Add Exercises', new_workout_type_exercise_path(workout_type.id), :class => "btn btn-primary"  %>
+			<% workout_type.exercise_types.each do |exercise_type| %>
+				<p>
+					<%= exercise_type.name %>
+				</p>
+			<% end %>
+			<br />
+			
+			<% if workout_type.user.present? %>
+      	<small><%= workout_type.user.email %></small>
+    	<% end %>
+			<%= link_to 'Start Workout', '#', :class => "btn btn-primary"  %>
 		</div>
 	<% end %>

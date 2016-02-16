@@ -27,11 +27,18 @@
       <ul class="nav navbar-nav">
         <li>
           <%= link_to new_workout_type_path do %>
-          <i class="glyphicon glyphicon-plus-sign"></i>
-          New Custom Workout
+            <i class="glyphicon glyphicon-plus-sign"></i>
+            New Custom Workout
           <% end %>
-        </li>
-        
+        </li>       
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+        <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+      <% else %>
+        <li><%= link_to 'Sign in', new_user_session_path %></li>
+        <li><%= link_to 'Sign up', new_user_registration_path %></li>
+      <% end %>
     </ul>
 
 

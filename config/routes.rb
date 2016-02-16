@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -6,8 +7,10 @@ Rails.application.routes.draw do
    root 'workout_types#index'
 
    resources :workout_types do
-    resources :workouts
-    resources :exercises
+    resources :exercise_types
+    resources :workouts do
+     resources :exercises
+    end
   end
 
   # Example of regular route:
