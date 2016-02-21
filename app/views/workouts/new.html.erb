@@ -1,0 +1,13 @@
+<h1>Start New Workout</h1>
+
+<%= @workout_type.type_name %>
+<% @workout_type.exercise_types.each do |exercise_type| %>
+	<p>
+		<% if exercise_type.name.present? %>
+			<p><%= exercise_type.name %></p>
+			<span>Sets: </span><%= exercise_type.sets %>
+			<span>Reps: </span><%= exercise_type.reps %>
+			<span>Load: </span><%= exercise_type.load %><span> lb</span>
+		<% end %>
+	</p>
+<% end %>

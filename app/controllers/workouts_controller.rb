@@ -3,6 +3,14 @@ class WorkoutsController < ApplicationController
 
 	def index
 	end
+
+	def new
+		@workout_type = WorkoutType.find(params[:workout_type_id])
+		@workout = Workout.new
+		@workout.type = @workout_type.type_name
+		
+
+	end
 	
 	
 
