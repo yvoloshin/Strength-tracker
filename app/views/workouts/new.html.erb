@@ -13,21 +13,22 @@
 <% end %>
 
 <h3>Enter today's results</h3> 
-  <br />
-
+<br />
 <%= @workout.type %>
-<%= simple_form_for @exercises, :url => workout_type_workouts_path(:workout_type_id), :method => :put do |f| %>	
+<br />
+<%= simple_form_for @exercises, :url => workout_type_workouts_path(:workout_type_id), :method => :post do |f| %>	
 	<%= @workout.exercises.each do |exercise| %>
 		<% if exercise.name.present? %>
-			<p><%= exercise.name %></p>
 			<%= f.fields_for exercise do |builder| %>
 				<p><%= exercise.name %></p>
 				<%= render 'exercise_performed', :f => builder %>
 			<% end %>
-			<%= f.submit 'Save', :class=>"btn btn-primary" %>
 		<% end %>
 	<% end %>
+	<%= f.submit 'Save', :class=>"btn btn-primary" %>
 <% end %>
+
+
 
 
 
