@@ -1,6 +1,7 @@
 <h1>Start New Workout</h1>
 
 <%= @workout_type.type_name %>
+<br />
 <% @workout_type.exercise_types.each do |exercise_type| %>
 	<p>
 		<% if exercise_type.name.present? %>
@@ -15,13 +16,14 @@
 <h3>Enter today's results</h3> 
 <br />
 <%= @workout.type %>
+<%= @workout_type.id %>
 <br />
-<%= simple_form_for @exercises, :url => workout_type_workouts_path(:workout_type_id), :method => :post do |f| %>	
+<%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>	
 	<%= @workout.exercises.each do |exercise| %>
 		<% if exercise.name.present? %>
-			<%= f.fields_for exercise do |builder| %>
+			<%= f.simple_fields_for :exercises, @exercises do |builder| %>
 				<p><%= exercise.name %></p>
-				<%= render 'exercise_performed', :f => builder %>
+				<%= render 'exercise_performed', :name => exercise.name, :f => builder %>
 			<% end %>
 		<% end %>
 	<% end %>

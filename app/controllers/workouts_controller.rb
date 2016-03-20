@@ -6,8 +6,10 @@ class WorkoutsController < ApplicationController
 	end
 
 	def new
-		@workout_type = WorkoutType.find(params[:workout_type_id])
+		@workout_type = current_workout_type
+		# need to associate @workout and @workout_type
 		@workout = Workout.new
+		#@workout = @workout_type.workouts.build
 		@workout.type = @workout_type.type_name
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
 		n = @workout_type.exercise_types.size
@@ -21,8 +23,9 @@ class WorkoutsController < ApplicationController
 		
 
 	def create
-		#@workout_type = WorkoutType.find(params[:workout_type_id])
-		@workout = current_workout_type.workouts.create(workout_params.merge(:user => current_user))
+		@workout_type = WorkoutType.find(params[:workout_type_id])
+		#@workout_type = current_workout_type
+		@workout = @workout_type.workouts.create(workout_params.merge(:user => current_user))
 
 			if @workout.valid?
 				redirect_to root_path
@@ -52,6 +55,10 @@ class WorkoutsController < ApplicationController
 
 	def exercise_params
 		params.require(:exercise).permit(:name, :sets, :reps, :load)
+	end
+
+	def workout_type_params
+		params.require(:workout_type).permit(:type_name, exercise_types_attributes: [:name, :sets, :reps, :load])
 	end
 
 end

@@ -12,7 +12,6 @@ class WorkoutTypesController < ApplicationController
 
 	def create
 		@workout_type = current_user.workout_types.create(workout_type_params)
-		#@exercise_types = ExerciseTypes.create(params[:exercises_attributes])
 		if @workout_type.valid?
 			redirect_to root_path
 		else
