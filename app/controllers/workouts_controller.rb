@@ -12,13 +12,17 @@ class WorkoutsController < ApplicationController
 		#@workout = @workout_type.workouts.build
 		@workout.type = @workout_type.type_name
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
+		puts @exercise_type_names_arr.inspect
 		n = @workout_type.exercise_types.size
+		puts n
 		@exercises = Array.new(n) { @workout.exercises.build }
 		i = 0
 		while i<n do
 			@exercises[i].name = @exercise_type_names_arr[i]
 			i += 1
-		end			
+		end
+		@exercises.delete_if {|exercise| exercise.name.empty? }
+		puts @exercises.inspect
 	end
 		
 

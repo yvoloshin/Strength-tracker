@@ -19,19 +19,14 @@
 <%= @workout_type.id %>
 <br />
 <%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>	
-	<%= @workout.exercises.each do |exercise| %>
-		<% if exercise.name.present? %>
+	<%= @workout.exercises.each do |e| %>
+		<% if e.name.present? %>
 			<%= f.simple_fields_for :exercises, @exercises do |builder| %>
-				<p><%= exercise.name %></p>
-				<%= render 'exercise_performed', :name => exercise.name, :f => builder %>
+				<p><%= e.name %></p>
+				<%= render 'exercise_performed', :name => e.name, :f => builder %>
+				<br />
 			<% end %>
 		<% end %>
 	<% end %>
 	<%= f.submit 'Save', :class=>"btn btn-primary" %>
 <% end %>
-
-
-
-
-
-
