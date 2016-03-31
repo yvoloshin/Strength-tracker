@@ -31,11 +31,11 @@ class WorkoutsController < ApplicationController
 		#@workout_type = current_workout_type
 		@workout = @workout_type.workouts.create(workout_params.merge(:user => current_user))
 
-			if @workout.valid?
-				redirect_to root_path
-			else
-				render :new, :status => :unprocessable_entity
-			end
+		if @workout.valid?
+			redirect_to root_path
+		else
+			render :new, :status => :unprocessable_entity
+		end
 	end
 
 	helper_method :current_workout_type
@@ -54,7 +54,7 @@ class WorkoutsController < ApplicationController
 
 
 	def workout_params
-		params.require(:workout).permit(:name, exercise_attributes: [:name, :sets, :reps, :load])
+		params.require(:workout).permit(:type, :exercises_attributes => [:name, :sets, :reps, :load])
 	end
 
 	def exercise_params
@@ -62,7 +62,7 @@ class WorkoutsController < ApplicationController
 	end
 
 	def workout_type_params
-		params.require(:workout_type).permit(:type_name, exercise_types_attributes: [:name, :sets, :reps, :load])
+		params.require(:workout_type).permit(:type_name, :exercise_types_attributes => [:name, :sets, :reps, :load])
 	end
 
 end
