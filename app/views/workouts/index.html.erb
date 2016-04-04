@@ -14,12 +14,14 @@
         <td><%= workout.created_at.strftime "%B %e, %Y" %></td>
         <td><%= workout.workout_type.type_name %></td>
         <td>	
-					<button link_to user_workout_path type="button" class="btn btn-default" aria-label="view">
-  					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					</button>
-					<button link_to user_workout_path method: :delete type="button" class="btn btn-default" aria-label="delete">
-  					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-					</button>
+					<%= link_to user_workout_path(workout.user, workout), :class => 'btn btn-default' do %>
+						View &nbsp;
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					<% end %>
+					<%= link_to user_workout_path(workout.user, workout), method: :delete, :class => 'btn btn-default' do %>
+						Delete &nbsp;
+						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+					<% end %>
 				</td>    
       </tr>
     <% end %>
