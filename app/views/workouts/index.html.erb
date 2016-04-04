@@ -1,0 +1,27 @@
+<h1>My Workout History<h1>
+
+<table class="table table-bordered table-striped table-responsive col-xs-10 col-xs-offset-1">
+  <thead>
+    <tr>
+      <th><%= "Date" %></th>
+      <th><%= "Workout Type" %></th>
+      <th><%= "Actions" %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @workouts.each do |workout| %>
+      <tr>
+        <td><%= workout.created_at.strftime "%B %e, %Y" %></td>
+        <td><%= workout.workout_type.type_name %></td>
+        <td>	
+					<button link_to user_workout_path type="button" class="btn btn-default" aria-label="view">
+  					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					</button>
+					<button link_to user_workout_path method: :delete type="button" class="btn btn-default" aria-label="delete">
+  					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+					</button>
+				</td>    
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -4,14 +4,20 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'workout_types#index'
+  root 'workout_types#index'
 
-   resources :workout_types do
+  resources :workout_types do
     resources :exercise_types
     resources :workouts do
-     resources :exercises
+      resources :exercises
     end
   end
+
+  resources :users do
+    resources :workouts, :only => [:index, :show, :delete]
+  end 
+
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -38,6 +38,11 @@ class WorkoutsController < ApplicationController
 		end
 	end
 
+	def show
+		@workout=Workout.find(params[:id])
+	end
+
+
 	helper_method :current_workout_type
 	def current_workout_type
 		if params[:workout_type_id].present?
