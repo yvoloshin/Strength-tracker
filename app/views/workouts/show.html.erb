@@ -1,4 +1,25 @@
 <div class="workout-box col-xs-10 col-xs-offset-1">
 	<h1><%= @workout.workout_type.type_name %></h1>
 	<h2><%= @workout.created_at.strftime "%B %e, %Y" %></h2>
+
+
+<table class="table table-bordered table-striped table-responsive">
+  <thead>
+    <tr>
+      <th><%= "Exercise" %></th>
+      <th><%= "Sets" %></th>
+      <th><%= "Reps" %></th>
+      <th><%= "Load" %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @workout.exercises.each do |exercise| %>
+      <tr>
+        <td><%= exercise.name %></td>
+        <td><%= exercise.sets %></td>
+        <td><%= exercise.reps %></td>
+        <td><%= exercise.load %></td>
+      </tr>
+     <% end %>
+
 </div>
