@@ -4,7 +4,7 @@
   <%= simple_form_for (@workout_type) do |f| %>
 		<%= f.input :type_name, label: 'What will you call this workout?' %>
 	  <br />
-	 	<h3>Now let's enter the exercises:</h3> 
+	 	<h3>Now enter up to 10 exercises:</h3> 
 	  <br />
 		<%= f.fields_for :exercise_types, @exercise_types do |builder| %>
 			<%= render 'exercise_fields', :f => builder %>
