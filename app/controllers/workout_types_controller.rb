@@ -23,6 +23,14 @@ class WorkoutTypesController < ApplicationController
 		end
 	end
 
+	def show
+		@workout_type = WorkoutType.find(params[:id])
+	end
+
+	def edit
+
+	end
+
 	def workout_type_params
 		params.require(:workout_type).permit(:type_name, exercise_types_attributes: [:name, :sets, :reps, :load])
 	end

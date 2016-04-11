@@ -1,7 +1,5 @@
 <div class="workout-box col-xs-10 col-xs-offset-1">
-	<h1><%= @workout.workout_type.type_name %></h1>
-	<h2><%= @workout.created_at.strftime "%B %e, %Y" %></h2>
-
+	<h1><%= @workout_type.type_name %></h1>
 
 	<table class="table table-bordered table-striped table-responsive">
 	  <thead>
@@ -13,22 +11,23 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <% @workout.exercises.each do |exercise| %>
+	    <% @workout_type.exercise_types.each do |exercise_type| %>
 	      <tr>
-	        <td><%= exercise.name %></td>
-	        <td><%= exercise.sets %></td>
-	        <td><%= exercise.reps %></td>
-	        <td><%= exercise.load %></td>
+	        <td><%= exercise_type.name %></td>
+	        <td><%= exercise_type.sets %></td>
+	        <td><%= exercise_type.reps %></td>
+	        <td><%= exercise_type.load %></td>
 	      </tr>
 	    <% end %>
 	  </tbody>
 	</table>
+	<%= link_to 'Record Your Results', new_workout_type_workout_path(@workout_type), :class => "btn btn-primary"  %>
 </div>
 <div class="clear"></div>
 
 <div class="link col-xs-10 col-xs-offset-1">
-	<%= link_to user_workouts_path(@workout.user) do %>
+	<%= link_to workout_types_path do %>
 		<span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
-		Back to List of Your Workouts &nbsp;
+		Back to List of Workouts &nbsp;
 	<% end %>
 </div>

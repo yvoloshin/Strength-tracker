@@ -8,11 +8,14 @@
 					<%= exercise_type.name %>
 				</p>
 			<% end %>
-			<br />
 			
 			<% if workout_type.user.present? %>
       	<small><%= workout_type.user.email %></small>
     	<% end %>
-			<%= link_to 'Start Workout', new_workout_type_workout_path(workout_type), :class => "btn btn-primary"  %>
+    	<br />
+    	<div>
+	    	<%= link_to 'View Workout', workout_type_path(workout_type), :class => "btn btn-primary"  %>
+				<%= link_to 'Record Your Results', new_workout_type_workout_path(workout_type), :class => "btn btn-primary"  %>
+			</div>
 		</div>
 	<% end %>

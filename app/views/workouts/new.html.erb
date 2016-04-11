@@ -1,28 +1,24 @@
-<h1>Start New Workout</h1>
+<div class="workout-box col-xs-10 col-xs-offset-1">
+<h1><%= @workout_type.type_name %></h1>
 
-<%= @workout_type.type_name %>
-<br />
 <% @workout_type.exercise_types.each do |exercise_type| %>
 	<p>
 		<% if exercise_type.name.present? %>
-			<p><%= exercise_type.name %></p>
-			<span>Sets: </span><%= exercise_type.sets %>
-			<span>Reps: </span><%= exercise_type.reps %>
-			<span>Load: </span><%= exercise_type.load %><span> lb</span>
+			<h3><%= exercise_type.name %></h3>
+			<span>Sets: </span><span class="new-workout-numbers"><%= exercise_type.sets %></span>
+			<span>Reps: </span><span class="new-workout-numbers"><%= exercise_type.reps %></span>
+			<span>Load: </span><span class="new-workout-numbers"><%= exercise_type.load %></span><span> lb</span>
 		<% end %>
 	</p>
 <% end %>
 
 <h3>Enter today's results</h3> 
 <br />
-<%= @workout.type %>
-<%= @workout_type.id %>
-<br />
+
 <%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>
 	<% i=0 %>
 	<%= while i <	@exercises.count do %>
 		<%= f.simple_fields_for :exercises, @exercises[i] do |builder| %>
-			<p><%= @exercises[i].name %></p>
 			<%= render 'exercise_performed', :name => @exercises[i].name, :f => builder %>
 			<br />
 		<% end %>
@@ -30,3 +26,4 @@
 	<% end %>
 	<%= f.submit 'Save', :class=>"btn btn-primary" %>
 <% end %>
+</div>
