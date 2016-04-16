@@ -9,10 +9,8 @@ class WorkoutsController < ApplicationController
 		@workout_type = current_workout_type
 		# need to associate @workout and @workout_type
 		@workout = Workout.new
-		#@workout = @workout_type.workouts.build
 		@workout.type = @workout_type.type_name
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
-		puts @exercise_type_names_arr.inspect
 		n = @workout_type.exercise_types.size
 		puts n
 		@exercises = Array.new(n) { @workout.exercises.build }
@@ -22,7 +20,6 @@ class WorkoutsController < ApplicationController
 			i += 1
 		end
 		@exercises.delete_if {|exercise| exercise.name.empty? }
-		puts @exercises.inspect
 	end
 		
 
@@ -32,7 +29,8 @@ class WorkoutsController < ApplicationController
 		@workout = @workout_type.workouts.create(workout_params.merge(:user => current_user))
 
 		if @workout.valid?
-			redirect_to root_path
+			redirect_to user_workouts_path(current_user)
+			# redirect_to root_path
 		else
 			render :new, :status => :unprocessable_entity
 		end

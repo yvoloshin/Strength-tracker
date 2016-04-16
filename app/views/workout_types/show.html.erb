@@ -12,12 +12,14 @@
 	  </thead>
 	  <tbody>
 	    <% @workout_type.exercise_types.each do |exercise_type| %>
-	      <tr>
-	        <td><%= exercise_type.name %></td>
-	        <td><%= exercise_type.sets %></td>
-	        <td><%= exercise_type.reps %></td>
-	        <td><%= exercise_type.load %></td>
-	      </tr>
+		    <% if exercise_type.name.present? %>
+		      <tr>
+		        <td><%= exercise_type.name %></td>
+		        <td><%= exercise_type.sets %></td>
+		        <td><%= exercise_type.reps %></td>
+		        <td><%= exercise_type.load %></td>
+		      </tr>
+		    <% end %>
 	    <% end %>
 	  </tbody>
 	</table>
