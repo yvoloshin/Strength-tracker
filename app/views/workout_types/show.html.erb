@@ -25,11 +25,10 @@
 	</table>
 	<br />
 	<div>
-		<span>This workout can be seen by:</span>
 		<% if @workout_type.public == true %>
-			<span>All Users</span>
+			<p>This workout can be seen by All Users</p>
 		<% elseif @workout_type.public == false %>
-			<span>Myself Only</span>
+			<p>This workout can be seen by Myself Only</p>
 		<% end %>
 	</div>
 	<br />
