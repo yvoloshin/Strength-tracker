@@ -23,6 +23,16 @@
 	    <% end %>
 	  </tbody>
 	</table>
+	<br />
+	<div>
+		<span>This workout can be seen by:</span>
+		<% if @workout_type.public == true %>
+			<span>All Users</span>
+		<% elseif @workout_type.public == false %>
+			<span>Myself Only</span>
+		<% end %>
+	</div>
+	<br />
 	<%= link_to 'Record Your Results', new_workout_type_workout_path(@workout_type), :class => "btn btn-primary"  %>
 </div>
 <div class="clear"></div>
