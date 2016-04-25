@@ -4,7 +4,10 @@
 	  <br />
 	  <p>Who should be able to see this workout?</p>
 
-	  <%= f.collection_radio_buttons :public, [[true, 'All Users'] ,[false, 'Myself Only']], :first, :last %>
+		<%= f.label :public, "All Users", :value => true %>
+    <%= f.radio_button :public, true, :checked => true %>
+    <%= f.label :public, "Myself Only", :value => false %>
+    <%= f.radio_button :public, false %>
 
 	 	<h3>Now enter up to 10 exercises:</h3> 
 	  <br />

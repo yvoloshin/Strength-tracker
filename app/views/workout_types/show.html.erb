@@ -27,7 +27,7 @@
 	<div>
 		<% if @workout_type.public == true %>
 			<p>This workout can be seen by All Users</p>
-		<% elseif @workout_type.public == false %>
+		<% elsif @workout_type.public == false %>
 			<p>This workout can be seen by Myself Only</p>
 		<% end %>
 	</div>
