@@ -1,0 +1,32 @@
+<div class="workout-box col-xs-10 col-xs-offset-1" id="new-workout-type">
+	<h1>Edit your Workout</h1>
+	<%= simple_form_for (@workout_type) do |f| %>
+		<%= f.input :type_name, label: 'What will you call this workout?' %>
+	  <br />
+	  <p>Who should be able to see this workout?</p>
+
+		<%= f.label :public, "All Users", :value => true %>
+    <%= f.radio_button :public, true, :checked => true %>
+    <%= f.label :public, "Myself Only", :value => false %>
+    <%= f.radio_button :public, false %>
+
+	 	<h3>Now enter up to 10 exercises:</h3> 
+	  <br />
+		<table class="table table-bordered table-striped table-responsive">
+		  <thead>
+		    <tr>
+		      <th><%= "Exercise Name" %></th>
+		      <th><%= "Sets" %></th>
+		      <th><%= "Reps" %></th>
+		      <th><%= "Load (lb)" %></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
+		      <%= render 'exercise_fields_table', :f => builder %>
+		    <% end %>
+		  </tbody>
+		</table>
+		<%= f.submit 'Update', :class=>"btn btn-primary" %>
+	<% end %>
+</div>

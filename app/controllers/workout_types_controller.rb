@@ -28,7 +28,28 @@ class WorkoutTypesController < ApplicationController
 	end
 
 	def edit
+		@workout_type = WorkoutType.find(params[:id])
 
+		if @workout_type.user != current_user
+			return render :text => 'Not Allowed', :status => :forbidden
+		end
+	end
+
+	def update
+		@workout_type = WorkoutType.find(params[:id])
+
+		if @workout_type.user != current_user
+			return render :text => 'Not Allowed', :status => :forbidden
+		end
+		
+		@workout_type.update_attributes(workout_type_params)
+		
+		if @workout_type.valid?
+			redirect_to root_path
+		else
+			render :edit, :status => :unprocessable_entity
+		end
+		
 	end
 
 	def workout_type_params
