@@ -10,13 +10,11 @@
       <% @workout_types.each do |workout_type| %>
 		<% if workout_type.public == true %>
 			<div class="workout-box col-xs-10 col-xs-offset-1">
-				<%= workout_type.type_name %><br />
+				<p class="workout_type-name"><%= workout_type.type_name %></p>
 				<% workout_type.exercise_types.each do |exercise_type| %>
-					<p>
-						<%= exercise_type.name %>
-					</p>
+					<div><%= exercise_type.name %></div>
 				<% end %>
-				
+				<br />
 				<% if workout_type.user.present? %>
 	      	<small><%= workout_type.user.email %></small>
 	    	<% end %>
@@ -45,13 +43,11 @@
       <% @workout_types.each do |workout_type| %>
 		<% if workout_type.user == current_user %>
 			<div class="workout-box col-xs-10 col-xs-offset-1">
-				<%= workout_type.type_name %><br />
+				<p class="workout_type-name"><%= workout_type.type_name %></p>
 				<% workout_type.exercise_types.each do |exercise_type| %>
-					<p>
-						<%= exercise_type.name %>
-					</p>
+					<div><%= exercise_type.name %></div>
 				<% end %>
-				
+				<br />
 				<% if workout_type.user.present? %>
 	      	<small><%= workout_type.user.email %></small>
 	    	<% end %>
