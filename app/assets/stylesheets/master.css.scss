@@ -46,6 +46,27 @@ th {
   font-size: 120%;
 }
 
-.container-fluid {
+.navbar.navbar-inverse {
   background: url('/assets/barbell-cropped.jpg');
+}
+
+.navbar-inverse .navbar-brand {
+  color: #E01250;
+  font-family: 'capture_itregular', sans-serif;
+  font-size:26px;
+}
+
+.nav .navbar-nav {
+  color: #FF0000;
+}
+
+.navbar-option a {
+  color: #D89EF5;
+  font-weight: bold;
+  text-shadow: 3px 1px 3px #282828;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #D89EF5;
+    text-shadow: 3px 1px 3px #282828;
 }
