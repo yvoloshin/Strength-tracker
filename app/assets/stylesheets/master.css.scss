@@ -1,3 +1,7 @@
+body {
+  font-family: "Helvetica Neue", Helvetica;
+}
+
 .navbar.navbar-inverse {
 	border-radius: 0;
 	box-shadow: 5px 10px 10px #888888;
@@ -48,12 +52,13 @@ th {
 
 .navbar.navbar-inverse {
   background: url('/assets/barbell-cropped.jpg');
+  font-family: "Helvetica Neue", Helvetica;
 }
 
 .navbar-inverse .navbar-brand {
   color: #E01250;
   font-family: 'capture_itregular', sans-serif;
-  font-size:26px;
+  font-size:30px;
 }
 
 .nav .navbar-nav {
@@ -67,6 +72,7 @@ th {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-    color: #D89EF5;
+    color: #24B9D6;
     text-shadow: 3px 1px 3px #282828;
+    font-size: 18px; 
 }

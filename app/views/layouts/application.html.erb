@@ -34,7 +34,10 @@
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
-    <ul class="nav navbar-nav">
+
+    <!-- if user not signed in, change links to point to sign-in page -->
+    <% if user_signed_in? %>
+      <ul class="nav navbar-nav">
         <li class="navbar-option">
           <%= link_to new_workout_type_path do %>
             <i class="glyphicon glyphicon-plus-sign"></i>
@@ -48,6 +51,23 @@
           <% end %>
         </li>       
       </ul>
+    <% else %>
+      <ul class="nav navbar-nav">
+        <li class="navbar-option">
+          <%= link_to new_user_session_path do %>
+            <i class="glyphicon glyphicon-plus-sign"></i>
+            New Routine
+          <% end %>
+        </li>
+        <li class="navbar-option">
+          <%= link_to new_user_session_path do %>
+            <i class="glyphicon glyphicon-search"></i>
+            My Workout History
+          <% end %>
+        </li>       
+      </ul>
+    <% end %> 
+
   </div><!-- /.container-fluid -->
 </nav>
 
