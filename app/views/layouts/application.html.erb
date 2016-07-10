@@ -27,6 +27,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
+          <li class="navbar-option"><%= current_user.username %></li>
           <li class="navbar-option"><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
         <% else %>
           <li class="navbar-option"><%= link_to 'Sign in', new_user_session_path %></li>
