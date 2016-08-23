@@ -28,7 +28,8 @@ body {
   margin-top:10px;
   margin-bottom: 15px;
   padding:20px;
-  text-align: center
+  text-align: center;
+  font-family: "Helvetica Neue", Helvetica;
 }
 
 
@@ -87,4 +88,11 @@ th {
     color: #24B9D6;
     text-shadow: 3px 1px 3px #282828;
     font-size: 18px; 
+}
+
+.current-user {
+  color: #24B9D6;
+  font-style: italic;
+  text-shadow: 3px 1px 3px #282828;
+  margin: 15px;
 }
