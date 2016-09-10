@@ -26,7 +26,8 @@ gem 'sprockets', '2.11.0'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 gem 'simple_form'
-gem 'devise', '>= 3.2.4'
+# gem 'devise', '>= 3.2.4', github: 'plataformatec/devise', branch: 'rails4'
+gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 gem "figaro"
 
 # Use ActiveModel has_secure_password
