@@ -41,6 +41,12 @@
     <% if user_signed_in? %>
       <ul class="nav navbar-nav">
         <li class="navbar-option">
+          <%= link_to root_path do %>
+            <i class="glyphicon glyphicon-eye-open"></i>
+            View Workout Routines
+          <% end %>
+        </li>      
+        <li class="navbar-option">
           <%= link_to new_workout_type_path do %>
             <i class="glyphicon glyphicon-plus-sign"></i>
             New Workout Routine
@@ -55,6 +61,12 @@
       </ul>
     <% else %>
       <ul class="nav navbar-nav">
+        <li class="navbar-option">
+          <%= link_to root_path do %>
+            <i class="glyphicon glyphicon-eye-open"></i>
+            View Workout Routines
+          <% end %>
+        </li>      
         <li class="navbar-option">
           <%= link_to new_user_session_path do %>
             <i class="glyphicon glyphicon-plus-sign"></i>

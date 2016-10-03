@@ -12,7 +12,6 @@ class WorkoutsController < ApplicationController
 		@workout.type = @workout_type.type_name
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
 		n = @workout_type.exercise_types.size
-		puts n
 		@exercises = Array.new(n) { @workout.exercises.build }
 		i = 0
 		while i<n do
