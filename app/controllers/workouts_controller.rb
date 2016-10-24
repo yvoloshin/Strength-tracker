@@ -11,11 +11,14 @@ class WorkoutsController < ApplicationController
 		@workout = Workout.new
 		@workout.type = @workout_type.type_name
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
-		n = @workout_type.exercise_types.size
-		@exercises = Array.new(n) { @workout.exercises.build }
+		@exercise_type_sets_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.sets }
+		number_of_exercises = @workout_type.exercise_types.size
+		@exercises = Array.new(number_of_exercises) { @workout.exercises.build }
+	
 		i = 0
-		while i<n do
+		while i < number_of_exercises do
 			@exercises[i].name = @exercise_type_names_arr[i]
+			@sets= Array.new(4) { @exercises[i].sets.build }
 			i += 1
 		end
 		@exercises.delete_if {|exercise| exercise.name.empty? }

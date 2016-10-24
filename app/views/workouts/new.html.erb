@@ -19,8 +19,12 @@
 	<% i=0 %>
 	<%= while i <	@exercises.count do %>
 		<%= f.simple_fields_for :exercises, @exercises[i] do |builder| %>
-			<%= render 'exercise_performed', :name => @exercises[i].name, :f => builder %>
-			<br />
+		  <%= f.input :name, :placeholder => :name, :input_html => { :value => f.object.name } %>
+			<% set = 0 %>
+			<%= while set <	@exercises[i].sets do %> 
+				<%= render 'exercise_performed', :name => @exercises[i].name, :f => builder %> 
+				<br />
+			<% end %>
 		<% end %>
 		<% i += 1 %>
 	<% end %>
