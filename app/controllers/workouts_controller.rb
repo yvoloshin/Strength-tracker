@@ -11,14 +11,24 @@ class WorkoutsController < ApplicationController
 		@workout = Workout.new
 		@workout.type = @workout_type.type_name
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
-		n = @workout_type.exercise_types.size
-		@exercises = Array.new(n) { @workout.exercises.build }
+		number_of_exercises = @workout_type.exercise_types.size
+		@exercises = Array.new(number_of_exercises) { @workout.exercises.build }
 		i = 0
-		while i<n do
+
+		while i<number_of_exercises do
 			@exercises[i].name = @exercise_type_names_arr[i]
 			i += 1
 		end
+
 		@exercises.delete_if {|exercise| exercise.name.empty? }
+
+		# Assume 5 sets per exercise
+		# Change to value of exercise_type.sets
+		# To do this, need to add "exercise_type has_many exercises"
+		@exercises.each do |exercise|
+		  @completed_sets = Array.new(5) { exercise.completed_sets.build }
+		end
+
 	end
 		
 
@@ -54,18 +64,8 @@ class WorkoutsController < ApplicationController
 		@current_workout ||= Workout.find(params[:id])
 	end
 
-
-
 	def workout_params
-		params.require(:workout).permit(:type, :exercises_attributes => [:name, :sets, :reps, :load])
-	end
-
-	def exercise_params
-		params.require(:exercise).permit(:name, :sets, :reps, :load)
-	end
-
-	def workout_type_params
-		params.require(:workout_type).permit(:type_name, :exercise_types_attributes => [:name, :sets, :reps, :load])
+		params.require(:workout).permit(:type, :exercises_attributes => [:name, :completed_sets_attributes => [:reps, :load]])
 	end
 
 end
