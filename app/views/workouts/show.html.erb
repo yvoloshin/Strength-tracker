@@ -2,24 +2,27 @@
 	<h1><%= @workout.workout_type.type_name %></h1>
 	<h2><%= @workout.created_at.strftime "%B %e, %Y" %></h2>
 
-
 	<table class="table table-bordered table-striped table-responsive">
 	  <thead>
 	    <tr>
 	      <th><%= "Exercise" %></th>
-	      <th><%= "Sets" %></th>
+	      <th><%= "Set" %></th>
 	      <th><%= "Reps" %></th>
 	      <th><%= "Load (lb)" %></th>
 	    </tr>
 	  </thead>
 	  <tbody>
 	    <% @workout.exercises.each do |exercise| %>
-	      <tr>
-	        <td><%= exercise.name %></td>
-	        <td><%= exercise.sets %></td>
-	        <td><%= exercise.reps %></td>
-	        <td><%= exercise.load %></td>
-	      </tr>
+	    	<% set_number = 1 %>
+	    	<% exercise.completed_sets.each do |set| %>
+		      <tr>
+		        <td><%= exercise.name %></td>
+		        <td><%= set_number %></td>
+		        <td><%= set.reps %></td>
+		        <td><%= set.load %></td>
+		      </tr>
+		      <% set_number += 1 %>
+	      <% end %>
 	    <% end %>
 	  </tbody>
 	</table>

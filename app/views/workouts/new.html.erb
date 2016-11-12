@@ -17,16 +17,14 @@
 
 	<%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>
 
-		
 		<% i=0 %>
 		<%= while i <	@exercises.count do %>
 			<%= f.simple_fields_for :exercises, @exercises[i] do |builder| %>
-				<%= @exercises[i].inspect %>
+				<%= builder.input :name, :placeholder => :name, :input_html => { :value => builder.object.name } %>
 				<%= builder.simple_fields_for :completed_sets do |sets| %>
             <%= sets.input :reps %>
             <%= sets.input :load %>  
         <% end %>
-
 			<% end %>
 			<% i += 1 %>
 		<% end %>

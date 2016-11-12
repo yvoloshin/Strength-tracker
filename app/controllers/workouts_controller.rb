@@ -13,9 +13,9 @@ class WorkoutsController < ApplicationController
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
 		number_of_exercises = @workout_type.exercise_types.size
 		@exercises = Array.new(number_of_exercises) { @workout.exercises.build }
+		
 		i = 0
-
-		while i<number_of_exercises do
+    while i<number_of_exercises do
 			@exercises[i].name = @exercise_type_names_arr[i]
 			i += 1
 		end
@@ -29,17 +29,16 @@ class WorkoutsController < ApplicationController
 		  @completed_sets = Array.new(5) { exercise.completed_sets.build }
 		end
 
+
 	end
 		
 
 	def create
 		@workout_type = WorkoutType.find(params[:workout_type_id])
-		#@workout_type = current_workout_type
 		@workout = @workout_type.workouts.create(workout_params.merge(:user => current_user))
 
 		if @workout.valid?
 			redirect_to user_workouts_path(current_user)
-			# redirect_to root_path
 		else
 			render :new, :status => :unprocessable_entity
 		end
