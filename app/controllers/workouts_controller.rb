@@ -28,8 +28,6 @@ class WorkoutsController < ApplicationController
 		@exercises.each do |exercise|
 		  @completed_sets = Array.new(5) { exercise.completed_sets.build }
 		end
-
-
 	end
 		
 

@@ -21,9 +21,12 @@
 		<%= while i <	@exercises.count do %>
 			<%= f.simple_fields_for :exercises, @exercises[i] do |builder| %>
 				<%= builder.input :name, :placeholder => :name, :input_html => { :value => builder.object.name } %>
+				<% set_number = 1 %>
 				<%= builder.simple_fields_for :completed_sets do |sets| %>
+						<div class="new-workout-numbers">Set <%= set_number %></div>
             <%= sets.input :reps %>
             <%= sets.input :load %>  
+            <% set_number += 1 %>
         <% end %>
 			<% end %>
 			<% i += 1 %>
