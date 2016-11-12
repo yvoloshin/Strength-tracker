@@ -17,19 +17,32 @@
 
 	<%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>
 
-		<% i=0 %>
-		<%= while i <	@exercises.count do %>
-			<%= f.simple_fields_for :exercises, @exercises[i] do |builder| %>
-				<%= builder.input :name, :placeholder => :name, :input_html => { :value => builder.object.name } %>
+		<% exercise_number = 0 %>
+		<%= while exercise_number <	@exercises.count do %>
+			<%= f.simple_fields_for :exercises, @exercises[exercise_number] do |builder| %>
+				<%= builder.input :name, :placeholder => :name, :input_html => { :value => builder.object.name }, label: false %>
 				<% set_number = 1 %>
-				<%= builder.simple_fields_for :completed_sets do |sets| %>
-						<div class="new-workout-numbers">Set <%= set_number %></div>
-            <%= sets.input :reps %>
-            <%= sets.input :load %>  
-            <% set_number += 1 %>
-        <% end %>
+				<table class="table table-bordered table-striped table-responsive">
+				  <thead>
+				    <tr>
+				      <th><%= "Set" %></th>
+				      <th><%= "Reps" %></th>
+				      <th><%= "Load (lb)" %></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+						<%= builder.simple_fields_for :completed_sets do |set| %>
+					  	<tr>
+				        <td><%= set_number %></td>
+				        <td><%= set.input :reps, label: false %></td>
+				        <td><%= set.input :load, label: false %></td>
+	      			</tr>
+			      	<% set_number += 1 %>
+			      <% end %>
+				  </tbody>
+				</table>
 			<% end %>
-			<% i += 1 %>
+			<% exercise_number += 1 %>
 		<% end %>
 
 		<%= f.submit 'Save', :class=>"btn btn-primary" %>
