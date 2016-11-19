@@ -7,6 +7,10 @@ body {
 	box-shadow: 5px 10px 10px #888888;
 }
 
+.navbar-right {
+    margin-right: 0px;
+}
+
 .workout-box {
   -moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
   -webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
@@ -95,4 +99,8 @@ th {
   font-style: italic;
   text-shadow: 3px 1px 3px #282828;
   margin: 15px;
+}
+
+a.btn.btn-primary {
+  margin: 3px;
 }

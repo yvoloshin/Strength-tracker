@@ -21,7 +21,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to 'Strength Tracker', root_path, :class=>'navbar-brand' %>
+      <%= link_to 'Routine Tracker', root_path, :class=>'navbar-brand' %>
       <br />
       <br />
       <h1 style="font-style: italic; color: white">
@@ -65,7 +65,7 @@
             <i class="glyphicon glyphicon-search"></i>
             My Workout History
           <% end %>
-        </li>       
+        </li>
       </ul>
     <% else %>
       <ul class="nav navbar-nav">
@@ -86,9 +86,18 @@
             <i class="glyphicon glyphicon-search"></i>
             My Workout History
           <% end %>
-        </li>       
+        </li> 
       </ul>
     <% end %> 
+
+    <ul class="nav navbar-nav navbar-right">
+      <li class="navbar-option navbar-right">
+          <%= link_to faq_path do %>
+            <i class="glyphicon glyphicon-question-sign"></i>
+            FAQ
+          <% end %>
+        </li>    
+    </ul>
 
   </div><!-- /.container-fluid -->
 </nav>

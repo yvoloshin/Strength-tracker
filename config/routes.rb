@@ -15,7 +15,10 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :workouts, :only => [:index, :show, :delete]
-  end 
+  end
+
+  get 'faq', :to => 'faq'
+
 
 
 
