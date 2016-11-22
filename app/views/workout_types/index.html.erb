@@ -28,9 +28,11 @@
 						View &nbsp;
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<% end %>
-					<%= link_to edit_workout_type_path(workout_type), :class => 'btn btn-primary' do %>
-						Edit &nbsp;
-						<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+					<% if workout_type.user == current_user %>
+						<%= link_to edit_workout_type_path(workout_type), :class => 'btn btn-primary' do %>
+							Edit &nbsp;
+							<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+						<% end %>
 					<% end %>
 					<%= link_to new_workout_type_workout_path(workout_type), :class => 'btn btn-primary' do %>
 						Record Your Results &nbsp;
