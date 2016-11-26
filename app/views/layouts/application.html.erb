@@ -24,11 +24,13 @@
       <%= link_to 'Routine Tracker', root_path, :class=>'navbar-brand' %>
       <br />
       <br />
-      <h1 style="font-style: italic; color: white">
-        MAKE EVERY POUND COUNT!
-      </h1>
-       <div style="color: white">
-        Join free to create workout routines, record your results, and see your progress.
+      <div class="slogan">
+        <h1 style="font-style: italic; color: white">
+          MAKE EVERY POUND COUNT!
+        </h1>
+         <div style="color: white">
+          Join free to create workout routines, record your results, and see your progress.
+        </div>
       </div>
     </div>
 
@@ -64,6 +66,7 @@
           <%= link_to user_workouts_path(current_user) do %>
             <i class="glyphicon glyphicon-search"></i>
             My Workout History
+            <span class="badge"><%= Workout.where(user_id: current_user).count %></span></a>
           <% end %>
         </li>
       </ul>
@@ -94,7 +97,7 @@
       <li class="navbar-option navbar-right">
           <%= link_to faq_path do %>
             <i class="glyphicon glyphicon-question-sign"></i>
-            FAQ
+            Frequently Asked Questions
           <% end %>
         </li>    
     </ul>
