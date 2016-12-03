@@ -21,8 +21,6 @@ Rails.application.routes.draw do
   get 'faq', :to => 'static_pages#faq'
 
 
-
-
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

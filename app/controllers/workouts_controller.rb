@@ -3,11 +3,16 @@ class WorkoutsController < ApplicationController
 
 	def index
 		@workouts = current_user.workouts.all
+
+		respond_to do |format|
+	    format.html
+	    format.csv { send_data @workouts.as_csv }
+  	end
+
 	end
 
 	def new
 		@workout_type = current_workout_type
-		# need to associate @workout and @workout_type
 		@workout = Workout.new
 		@workout.type = @workout_type.type_name
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
@@ -46,7 +51,6 @@ class WorkoutsController < ApplicationController
 		@workout = Workout.find(params[:id])
 		@user = current_user
 	end
-
 
 	helper_method :current_workout_type
 	def current_workout_type
