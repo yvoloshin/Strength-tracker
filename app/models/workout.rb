@@ -7,7 +7,7 @@ class Workout < ActiveRecord::Base
 
 	# self = @workouts
 	# make each row an exercise
-	def self.as_csv
+	def self.as_csv(options = {})
 	  CSV.generate do |csv|
 	    all.each do |item|
 

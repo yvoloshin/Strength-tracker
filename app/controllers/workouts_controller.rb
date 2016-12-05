@@ -7,6 +7,7 @@ class WorkoutsController < ApplicationController
 		respond_to do |format|
 	    format.html
 	    format.csv { send_data @workouts.as_csv }
+	    format.xls
   	end
 
 	end

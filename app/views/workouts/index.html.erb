@@ -32,11 +32,10 @@
 
   <br />
 
-  <strong>
-    <%= link_to user_workouts_path(current_user, format: "csv") do %>
-      <i class="glyphicon glyphicon-download-alt"></i>
-      Download workout history as CSV file
-    <% end %>
+  <strong>   
+    <i class="glyphicon glyphicon-download-alt"></i>Download workout history:
+      <%= link_to "CSV", user_workouts_path(current_user, format: "csv") %> |   
+      <%= link_to "XLS", user_workouts_path(current_user, format: "xls") %>
   </strong>
 
 </div>
