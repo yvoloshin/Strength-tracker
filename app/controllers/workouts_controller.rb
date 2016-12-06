@@ -17,22 +17,22 @@ class WorkoutsController < ApplicationController
 		@workout = Workout.new
 		@workout.type = @workout_type.type_name
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
+		@exercise_type_ids_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.id }
 		number_of_exercises = @workout_type.exercise_types.size
 		@exercises = Array.new(number_of_exercises) { @workout.exercises.build }
 		
 		i = 0
     while i<number_of_exercises do
 			@exercises[i].name = @exercise_type_names_arr[i]
+			@exercises[i].exercise_type_id = @exercise_type_ids_arr[i]
 			i += 1
 		end
 
 		@exercises.delete_if {|exercise| exercise.name.empty? }
 
-		# Assume 5 sets per exercise
-		# Change to value of exercise_type.sets
-		# To do this, need to add "exercise_type has_many exercises"
 		@exercises.each do |exercise|
-		  @completed_sets = Array.new(5) { exercise.completed_sets.build }
+			sets = ExerciseType.find(exercise.exercise_type_id).sets
+		  @completed_sets = Array.new(sets) { exercise.completed_sets.build }
 		end
 	end
 		
