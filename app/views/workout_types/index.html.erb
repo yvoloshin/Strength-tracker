@@ -1,85 +1,101 @@
 
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">All Public Routines 
-    	<span class="badge"><%= @workout_types.where(public: true).count %></span></a>
-    </li>
-    <li><a data-toggle="tab" href="#menu1">My Routines
-    	<span class="badge"><%= @workout_types.where(user_id: current_user).count %></span></a>
-    </li>
-  </ul>
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">All Public Routines 
+  	<span class="badge"><%= @workout_types.where(public: true).count %></span></a>
+  </li>
+  <li><a data-toggle="tab" href="#menu1">My Routines
+  	<span class="badge"><%= @workout_types.where(user_id: current_user).count %></span></a>
+  </li>
+</ul>
 
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <h3>Public Routines</h3>
-      <% @workout_types.each do |workout_type| %>
-		<% if workout_type.public == true %>
-			<div class="workout-box col-xs-10 col-xs-offset-1">
-				<p class="workout_type-name"><%= workout_type.type_name %></p>
-				<% workout_type.exercise_types.each do |exercise_type| %>
-					<div><%= exercise_type.name %></div>
-				<% end %>
-				<br />
-				<% if workout_type.user.present? %>
-	      	<small><%= workout_type.user.email %></small>
-	    	<% end %>
-	    	<br />
-	    	<div>
-	    		<%= link_to workout_type_path(workout_type), :class => 'btn btn-primary' do %>
-						View &nbsp;
-						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
+    <h3>Public Routines</h3>
+    <% @workout_types.each do |workout_type| %>
+			<% if workout_type.public == true %>
+				<div class="workout-box col-xs-10 col-xs-offset-1">
+					<p class="workout_type-name"><%= workout_type.type_name %></p>
+
+					<% workout_type.exercise_types.each do |exercise_type| %>
+						<div><%= exercise_type.name %></div>
 					<% end %>
-					<% if workout_type.user == current_user %>
-						<%= link_to edit_workout_type_path(workout_type), :class => 'btn btn-primary' do %>
-							Edit &nbsp;
-							<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+					<br />
+
+					<% if workout_type.user.present? %>
+		      	<small><%= workout_type.user.email %></small>
+		    	<% end %>
+		    	<br />
+
+		    	<!-- action buttons --> 
+		    	<div>
+		    		<%= link_to workout_type_path(workout_type), :class => 'btn btn-primary' do %>
+							View &nbsp;
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 						<% end %>
-					<% end %>
-					<%= link_to new_workout_type_workout_path(workout_type), :class => 'btn btn-primary' do %>
-						Record Your Results &nbsp;
-						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-					<% end %>
-				</div>
-			</div>
-		<% end %>	
-	<% end %>
-    </div>
-
-    <div id="menu1" class="tab-pane">
-    	<% if user_signed_in? %>
-	      <h3>My Workouts</h3>
-	      <% @workout_types.each do |workout_type| %>
-					<% if workout_type.user == current_user %>
-						<div class="workout-box col-xs-10 col-xs-offset-1">
-							<p class="workout_type-name"><%= workout_type.type_name %></p>
-							<% workout_type.exercise_types.each do |exercise_type| %>
-								<div><%= exercise_type.name %></div>
+						<% if user_signed_in? && workout_type.user == current_user %>
+							<%= link_to edit_workout_type_path(workout_type), :class => 'btn btn-primary' do %>
+								Edit &nbsp;
+								<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 							<% end %>
-							<br />
-							<% if workout_type.user.present? %>
-				      	<small><%= workout_type.user.email %></small>
-				    	<% end %>
-				    	<br />
-				    	<div>
-					    	<%= link_to workout_type_path(workout_type), :class => 'btn btn-primary' do %>
-									View &nbsp;
-									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-								<% end %>
-								<%= link_to edit_workout_type_path(workout_type), :class => 'btn btn-primary' do %>
-									Edit &nbsp;
-									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-								<% end %>
-								<%= link_to new_workout_type_workout_path(workout_type), :class => 'btn btn-primary' do %>
-									Record Your Results &nbsp;
-									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-								<% end %>
-							</div>
-						</div>
-					<% end %>	
-				<% end %>
-			<% else %>
-				<h2>Please <%= link_to 'sign in', new_user_session_path =%> to view your Routines.</h2>
-			<% end %>
+							<%= link_to workout_type_path(workout_type), method: :delete, :class => 'btn btn-primary' do %>
+								Delete &nbsp;
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							<% end %>
+						<% end %>
 
-    </div>
+						<% if user_signed_in? %>
+							<%= link_to new_workout_type_workout_path(workout_type), :class => 'btn btn-primary' do %>
+								Record Your Results &nbsp;
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							<% end %>
+						<% else %>
+							<%= link_to new_user_session_path, :class => 'btn btn-primary' do %>
+								Record Your Results &nbsp;
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							<% end %>
+						<% end %>	
+					</div>
+				</div>
+			<% end %>	
+		<% end %>
+  </div>
+
+  <div id="menu1" class="tab-pane">
+  	<% if user_signed_in? %>
+      <h3>My Workouts</h3>
+      <% @workout_types.each do |workout_type| %>
+				<% if workout_type.user == current_user %>
+					<div class="workout-box col-xs-10 col-xs-offset-1">
+						<p class="workout_type-name"><%= workout_type.type_name %></p>
+						<% workout_type.exercise_types.each do |exercise_type| %>
+							<div><%= exercise_type.name %></div>
+						<% end %>
+						<br />
+						<% if workout_type.user.present? %>
+			      	<small><%= workout_type.user.email %></small>
+			    	<% end %>
+			    	<br />
+			    	<div>
+				    	<%= link_to workout_type_path(workout_type), :class => 'btn btn-primary' do %>
+								View &nbsp;
+								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+							<% end %>
+							<%= link_to edit_workout_type_path(workout_type), :class => 'btn btn-primary' do %>
+								Edit &nbsp;
+								<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+							<% end %>
+							<%= link_to new_workout_type_workout_path(workout_type), :class => 'btn btn-primary' do %>
+								Record Your Results &nbsp;
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							<% end %>
+						</div>
+					</div>
+				<% end %>	
+			<% end %>
+		<% else %>
+			<h2>Please <%= link_to 'sign in', new_user_session_path =%> to view your Routines.</h2>
+		<% end %>
   </div>
 </div>
+
+<!-- </div> -->
