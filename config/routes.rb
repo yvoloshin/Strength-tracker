@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :workouts, :only => [:index, :show, :delete]
+    resources :workouts, :only => [:index, :show, :destroy]
   end
 
   get 'faq', :to => 'static_pages#faq'

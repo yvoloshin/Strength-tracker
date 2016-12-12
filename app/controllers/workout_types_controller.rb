@@ -45,9 +45,19 @@ class WorkoutTypesController < ApplicationController
 			redirect_to root_path
 		else
 			render :edit, :status => :unprocessable_entity
+		end	
+	end
+
+	def destroy
+    @workout_type = WorkoutType.find(params[:id])
+
+    if @workout_type.user != current_user
+			return render :text => 'Not Allowed', :status => :forbidden
 		end
 		
-	end
+    @workout_type.destroy
+    redirect_to root_path
+  end
 
 	def workout_type_params
 		params.require(:workout_type).permit(:type_name, :public, exercise_types_attributes: [:name, :sets, :reps, :load])

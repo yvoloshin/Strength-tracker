@@ -40,6 +40,9 @@ class WorkoutsController < ApplicationController
 	def create
 		@workout_type = WorkoutType.find(params[:workout_type_id])
 		@workout = @workout_type.workouts.create(workout_params.merge(:user => current_user))
+		workout_type = @workout_type.type_name
+
+		@workout.update(workout_type_name: workout_type)
 
 		if @workout.valid?
 			redirect_to user_workouts_path(current_user)
@@ -52,6 +55,14 @@ class WorkoutsController < ApplicationController
 		@workout = Workout.find(params[:id])
 		@user = current_user
 	end
+
+	def destroy
+		@workout = Workout.find(params[:id])
+    @user = current_user
+		
+    @workout.destroy
+    redirect_to user_workouts_path(current_user)
+  end
 
 	helper_method :current_workout_type
 	def current_workout_type
