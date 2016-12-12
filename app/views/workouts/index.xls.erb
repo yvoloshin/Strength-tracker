@@ -1,0 +1,25 @@
+<% @workouts.each do |workout| %> 
+  <p><%= workout.created_at.strftime("%B %e, %Y") %>  <%= workout.workout_type.type_name %></p>
+  <table border="1">
+    <tr>
+      <th>Exercise Name</th>
+      <th>Set</th>
+      <th>Reps</th>
+      <th>Load</th>
+    </tr>
+    <% workout.exercises.each do |exercise| %>
+      <% i=1 %>
+      <% exercise.completed_sets.each do |set| %> 
+        <tr>
+          <td><%= exercise.name %></td>
+          <td><%= i %></td>
+          <td><%= set.reps %></td>
+          <td><%= set.load %></td>
+        </tr> 
+        <% i += 1 %>
+      <% end %>  
+    <% end %>        
+  </table>
+<% end %>
+
+

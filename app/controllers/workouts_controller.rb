@@ -36,7 +36,7 @@ class WorkoutsController < ApplicationController
 		end
 	end
 		
-
+		
 	def create
 		@workout_type = WorkoutType.find(params[:workout_type_id])
 		@workout = @workout_type.workouts.create(workout_params.merge(:user => current_user))
