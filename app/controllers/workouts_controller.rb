@@ -15,7 +15,6 @@ class WorkoutsController < ApplicationController
 	def new
 		@workout_type = current_workout_type
 		@workout = Workout.new
-		@workout.type = @workout_type.type_name
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
 		@exercise_type_ids_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.id }
 		number_of_exercises = @workout_type.exercise_types.size
