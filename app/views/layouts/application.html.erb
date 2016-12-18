@@ -69,6 +69,13 @@
             <span class="badge"><%= Workout.where(user_id: current_user).count %></span></a>
           <% end %>
         </li>
+        <li class="navbar-option">
+          <% workout_type = 'last' %>
+          <%= link_to new_workout_type_workout_path(workout_type) do %>
+            <i class="glyphicon glyphicon-pencil"></i>
+            Repeat Last Workout
+          <% end %>
+        </li>
       </ul>
     <% else %>
       <ul class="nav navbar-nav">

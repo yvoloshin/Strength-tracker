@@ -13,7 +13,12 @@ class WorkoutsController < ApplicationController
 	end
 
 	def new
-		@workout_type = current_workout_type
+		puts last_workout_type.inspect
+		if params[:workout_type_id] == 'last'
+			@workout_type = last_workout_type
+		else @workout_type = current_workout_type
+		end
+		
 		@workout = Workout.new
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
 		@exercise_type_ids_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.id }
@@ -34,19 +39,24 @@ class WorkoutsController < ApplicationController
 		  @completed_sets = Array.new(sets) { exercise.completed_sets.build }
 		end
 	end
-		
+	
+	def last_workout_type
+		current_user.workouts.last.workout_type
+	end
 		
 	def create
-		@workout_type = WorkoutType.find(params[:workout_type_id])
-		@workout = @workout_type.workouts.create(workout_params.merge(:user => current_user))
-		workout_type = @workout_type.type_name
+		if has_internet?
+			@workout_type = WorkoutType.find(params[:workout_type_id])
+			@workout = @workout_type.workouts.create(workout_params.merge(:user => current_user))
+			workout_type = @workout_type.type_name
 
-		@workout.update(workout_type_name: workout_type)
+			@workout.update(workout_type_name: workout_type)
 
-		if @workout.valid?
-			redirect_to user_workouts_path(current_user)
-		else
-			render :new, :status => :unprocessable_entity
+			if @workout.valid?
+				redirect_to user_workouts_path(current_user)
+			else
+				render :new, :status => :unprocessable_entity
+			end
 		end
 	end
 
