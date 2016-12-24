@@ -25,7 +25,7 @@
 
 bike_exercise_names = ['Alternating Bent Dumbbell Row in Lunge', 'Alternating Dumbbell Press',
 'Alternating Biceps Curl', 'Cable Triceps Dips', 'Split Squat or Single Leg Squat', 
-'Lateral Lunges', 'Front Plank Reaches']
+'Lateral Lunges']
 
 bike_bodyweight_exercise_names = ['Front Plank Reaches']
 
@@ -62,10 +62,9 @@ end
 })
 
 run_exercise_names = ['Single Leg Overhead Press With Knee Drive', 'Running Man Row',
-'Walking Lunge', 'Single Leg Bridge', 'Hip Hikes', 'Fire Hydrants']
+'Walking Lunge']
 
-run_bodyweight_exercise_names = ['Single Leg Overhead Press With Knee Drive', 'Running Man Row',
-'Walking Lunge', 'Single Leg Bridge', 'Hip Hikes', 'Fire Hydrants']
+run_bodyweight_exercise_names = ['Single Leg Bridge', 'Hip Hikes', 'Fire Hydrants']
 
 run_exercise_names.each do |name|
 	@run_workout_type.exercise_types.create(
