@@ -57,5 +57,7 @@ group :development, :test do
   gem 'capybara'
 end
 
+gem 'capybara-screenshot', :group => :test
+
 gem 'rails_12factor', group: :production
 

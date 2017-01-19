@@ -16,7 +16,7 @@ class Workout < ActiveRecord::Base
 
 	    	heading = Array.new
 	    	heading << item.created_at.strftime("%B %e, %Y")
-	    	heading << item.workout_type.type_name
+	    	heading << item.workout_type_name
 	    	csv << heading
 
 	    	empty_line = Array.new
