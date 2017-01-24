@@ -120,7 +120,14 @@ describe "the signup process" do
     click_button "Save"
     expect(page).to have_content "User1's Test Workout"
 
-    # user1 deletes routine
+    # user2 deletes workout
+    click_link_or_button "#open_delete_modal"
+    sleep 1
+    within('#deleteModal') do
+      page.should have_content('Are you sure you want to delete this workout?')
+      click_link_or_button "Delete"
+      expect(page).to have_no_content "User1's Test Workout"
+    end
 
   end
   
