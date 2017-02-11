@@ -28,7 +28,6 @@
 
 		    	<!-- action buttons --> 
 		    	<div>
-
 		    		<%= link_to workout_type_path(workout_type), :class => 'btn btn-primary' do %>
 							View &nbsp;
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -69,7 +68,8 @@
       <% @workout_types.each do |workout_type| %>
 				<% if workout_type.user == current_user %>
 					<div class="workout-box col-xs-10 col-xs-offset-1">
-						<p class="workout_type-name"><%= workout_type.type_name %></p>
+						<p class="workout_type-name"><%= link_to workout_type.type_name, workout_type_path(workout_type) %></p>
+						<p><%= truncate(workout_type.description, length: 200) %></p>
 						<% workout_type.exercise_types.each do |exercise_type| %>
 							<div><%= exercise_type.name %></div>
 						<% end %>
