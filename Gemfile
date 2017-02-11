@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-ruby "2.2.0"
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use postgresql as the database for Active Record
@@ -56,11 +54,12 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
+  gem 'capybara-screenshot'
 end
-
-gem 'capybara-screenshot', :group => :test
 
 gem 'rails_12factor', group: :production
 
-gem 'poltergeist'
+group :test do
+  gem 'webmock'
+end
 

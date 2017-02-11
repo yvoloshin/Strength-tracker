@@ -19,6 +19,15 @@ RSpec.describe WorkoutTypesController, :type => :controller do
     it "redirect to sign in form" do
       get :new
       expect(response).to redirect_to new_user_session_path
+      user = User.create(
+        email:                 'fakeuser@gmail.com',
+        username:              'fakeusername', 
+        password:              'secretPassword',
+        password_confirmation: 'secretPassword'
+      )
+      sign_in user
+      get :new
+      expect( response ).to render_template( :new )
     end
   end
 

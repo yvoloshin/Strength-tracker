@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'spec_helper'
 
-describe "the signup process" do
+describe "the signup process", js:true, type: :feature do
 
   it "signs up new users, creates and edits workout" do
     
@@ -119,17 +119,5 @@ describe "the signup process" do
     fill_in id: 'workout_exercises_attributes_1_completed_sets_attributes_2_load', with: '45'
     click_button "Save"
     expect(page).to have_content "User1's Test Workout"
-
-    # user2 deletes workout
-    click_link_or_button "#open_delete_modal"
-    sleep 1
-    within('#deleteModal') do
-      page.should have_content('Are you sure you want to delete this workout?')
-      click_link_or_button "Delete"
-      expect(page).to have_no_content "User1's Test Workout"
-    end
-
   end
-  
-
 end
