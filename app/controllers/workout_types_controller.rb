@@ -50,19 +50,14 @@ class WorkoutTypesController < ApplicationController
 
 	def destroy
     @workout_type = WorkoutType.find(params[:id])
-    # return render_not_found if @workout_type.blank?
+    
+    return render_not_found if @workout_type.blank?
 
     if @workout_type.user != current_user
 			return render :text => 'Not Allowed', :status => :forbidden
 		end
-		
-		puts @workout_type.inspect
-		puts @workout_type.id
-		puts params[:id]
-		puts WorkoutType.count
 
 		@workout_type.destroy 
-		puts WorkoutType.count
     redirect_to root_path
   end
 
