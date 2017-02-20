@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213031151) do
+ActiveRecord::Schema.define(version: 20170220070549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20161213031151) do
     t.integer  "user_id"
     t.boolean  "public"
     t.text     "description"
+    t.boolean  "is_visible"
   end
 
   add_index "workout_types", ["user_id"], name: "index_workout_types_on_user_id", using: :btree

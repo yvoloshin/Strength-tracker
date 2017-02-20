@@ -20,7 +20,8 @@
 	of the maximum weight you can lift in one rep. Testing your one rep max directly is too risky and is never
 	recommended, but there are a number of easy formulas and online calculators that can be used to estimate it.
 	For example, you can use the calculator at http://www.bodybuilding.com/fun/other7.htm",
-	public: true
+	public: true,
+	is_visible: true
 })
 
 bike_exercise_names = ['Alternating Bent Dumbbell Row in Lunge', 'Alternating Dumbbell Press',
@@ -58,7 +59,8 @@ end
 	of the maximum weight you can lift in one rep. Testing your one rep max directly is too risky and is never
 	recommended, but there are a number of easy formulas and online calculators that can be used to estimate it.
 	For example, you can use the calculator at http://www.bodybuilding.com/fun/other7.htm",
-	public: true
+	public: true,
+	is_visible: true
 })
 
 run_exercise_names = ['Single Leg Overhead Press With Knee Drive', 'Running Man Row',

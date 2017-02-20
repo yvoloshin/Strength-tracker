@@ -2,7 +2,7 @@ class WorkoutTypesController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :create]
 
 	def index
-		@workout_types = WorkoutType.all
+		@workout_types = WorkoutType.where({is_visible: true})
 	end
 
 	def new
@@ -12,6 +12,7 @@ class WorkoutTypesController < ApplicationController
 
 	def create
 		@workout_type = current_user.workout_types.create(workout_type_params)
+		@workout_type.is_visible = true
 
 		if @workout_type.valid?
 			redirect_to root_path
