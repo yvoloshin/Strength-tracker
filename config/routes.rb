@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   end
 
   get 'faq', :to => 'static_pages#faq'
+  get 'workout_types/:id/remove', :to => 'workout_types#remove', as: :workout_type_remove
 
 
   # Example of regular route:

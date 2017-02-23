@@ -1,5 +1,5 @@
 class WorkoutTypesController < ApplicationController
-	before_action :authenticate_user!, only: [:new, :create]
+	before_action :authenticate_user!, only: [:new, :create, :remove]
 
 	def index
 		@workout_types = WorkoutType.where({is_visible: true})
@@ -49,7 +49,7 @@ class WorkoutTypesController < ApplicationController
 		end	
 	end
 
-	def destroy
+	def remove
     @workout_type = WorkoutType.find(params[:id])
     
     return render_not_found if @workout_type.blank?
@@ -58,7 +58,9 @@ class WorkoutTypesController < ApplicationController
 			return render :text => 'Not Allowed', :status => :forbidden
 		end
 
-		@workout_type.destroy 
+		WorkoutType.update(params[:id], :is_visible => false)
+
+		# @workout_type.update_column(@workout_type.is_visible, false)
     redirect_to root_path
   end
 

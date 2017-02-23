@@ -17,7 +17,6 @@ class WorkoutsController < ApplicationController
 			@workout_type = last_workout_type
 		else @workout_type = current_workout_type
 		end
-		
 		@workout = Workout.new
 		@exercise_type_names_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.name }
 		@exercise_type_ids_arr = @workout_type.exercise_types.map { |exercise_type| exercise_type.id }
@@ -40,7 +39,8 @@ class WorkoutsController < ApplicationController
 	end
 	
 	def last_workout_type
-		current_user.workouts.last.workout_type
+		last_workout_type_id = current_user.workouts.last.workout_type_id
+		WorkoutType.find(last_workout_type_id)
 	end
 		
 	def create
