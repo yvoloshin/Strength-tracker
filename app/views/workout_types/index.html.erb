@@ -22,7 +22,7 @@
 						<br />
 
 						<% if workout_type.user.present? %>
-			      	<small><%= workout_type.user.username %></small>
+			      	<small>Added by: <%= workout_type.user.username %></small>
 			    	<% end %>
 			    	<br />
 
@@ -75,7 +75,7 @@
 							<% end %>
 							<br />
 							<% if workout_type.user.present? %>
-				      	<small><%= workout_type.user.email %></small>
+				      	<small>Added by: <%= workout_type.user.username %></small>
 				    	<% end %>
 				    	<br />
 				    	<div>
@@ -102,6 +102,7 @@
 	</div>
 <% else %>
 	<br />
+	<hr>
 	<h2>No routines have yet been added. Please click on <%= link_to 'New Workout Routine', new_workout_type_path =%> to add a new routine.</h2>
 <% end %>
 
