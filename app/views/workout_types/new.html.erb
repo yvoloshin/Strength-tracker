@@ -29,9 +29,23 @@
 		    <% end %>
 		  </tbody>
 		</table>
-		<%= f.submit 'Create Workout Routine', :class=>"btn btn-primary" %>
+		<%= f.submit 'Create Workout Routine', :class=>"btn btn-primary", :id=>"routine_submit" %>
 	<% end %>
 </div>
+
+<script type="text/javascript">
+  var warn_on_unload = true;
+
+  $( "#routine_submit" ).click(function() {
+      warn_on_unload = false;
+  });
+
+  window.onbeforeunload = function(){
+      if (warn_on_unload) {
+          return "Do you want to leave?"
+      }
+  }      
+</script>
 
 
 

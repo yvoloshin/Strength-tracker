@@ -45,6 +45,20 @@
 			<% exercise_number += 1 %>
 		<% end %>
 
-		<%= f.submit 'Save', :class=>"btn btn-primary" %>
+		<%= f.submit 'Save', :class=>"btn btn-primary", :id=>"workout_submit" %>
 	<% end %>
 </div>
+
+<script type="text/javascript">
+  var warn_on_unload = true;
+
+  $( "#workout_submit" ).click(function() {
+      warn_on_unload = false;
+  });
+
+  window.onbeforeunload = function(){
+      if (warn_on_unload) {
+          return "Do you want to leave?"
+      }
+  }      
+</script>
