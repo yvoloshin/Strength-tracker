@@ -9,7 +9,6 @@ class WorkoutsController < ApplicationController
 	    format.csv { send_data @workouts.as_csv }
 	    format.xls
   	end
-
 	end
 
 	def new
