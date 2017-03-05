@@ -12,13 +12,15 @@ class WorkoutTypesController < ApplicationController
 
 	def create
 		@workout_type = current_user.workout_types.create(workout_type_params)
-		@workout_type.is_visible = true
 
 		if @workout_type.valid?
 			redirect_to root_path
 		else
 			render :new, :status => :unprocessable_entity
 		end
+
+		@workout_type.update(:is_visible => true)
+		
 	end
 
 	def show
