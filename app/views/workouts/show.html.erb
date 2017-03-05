@@ -26,12 +26,13 @@
 	    </tbody>
     </table>
   <% end %>
-</div>
-<div class="clear"></div>
-
-<div class="link col-xs-10 col-xs-offset-1">
-	<%= link_to user_workouts_path(@workout.user) do %>
+ 
+  <%= link_to 'Repeat This Workout', new_workout_type_workout_path(@workout.workout_type_id), :class => 'btn btn-primary' %>
+	<br />
+	<br />
+  <%= link_to user_workouts_path(@workout.user) do %>
 		<span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
 		Back to List of Your Workouts &nbsp;
 	<% end %>
+               
 </div>
