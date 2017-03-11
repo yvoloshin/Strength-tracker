@@ -2,7 +2,7 @@ class WorkoutTypesController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :create, :remove]
 
 	def index
-		@workout_types = WorkoutType.where({is_visible: true})
+		@workout_types = WorkoutType.where({is_visible: true}).order("created_at DESC")
 	end
 
 	def new

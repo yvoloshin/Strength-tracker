@@ -22,7 +22,8 @@
 						<br />
 
 						<% if workout_type.user.present? %>
-			      	<small>Added by: <%= workout_type.user.username %></small>
+			      	<small>Added by: <%= workout_type.user.username %></small> | 
+			      	Used <span class="badge"><%= Workout.where(workout_type_id: workout_type.id).count %></span> times
 			    	<% end %>
 			    	<br />
 
@@ -64,11 +65,19 @@
 
 	  <div id="menu1" class="tab-pane">
 	  	<% if user_signed_in? %>
-	      <h3>My Workouts</h3>
+	      <h3>My Routines</h3>
 	      <% @workout_types.each do |workout_type| %>
 					<% if workout_type.user == current_user %>
 						<div class="workout-box col-xs-10 col-xs-offset-1">
-							<p class="workout_type-name"><%= link_to workout_type.type_name, workout_type_path(workout_type) %></p>
+							<p class="workout_type-name"><%= link_to workout_type.type_name, workout_type_path(workout_type) %>
+								<span class="badge">
+									<% if workout_type.public == true %>
+										Public
+									<% else %>
+										Private
+									<% end %>
+								</span>
+							</p>
 							<p><%= truncate(workout_type.description, length: 200) %></p>
 							<% workout_type.exercise_types.each do |exercise_type| %>
 								<div><%= exercise_type.name %></div>
