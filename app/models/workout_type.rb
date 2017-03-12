@@ -5,4 +5,14 @@ class WorkoutType < ActiveRecord::Base
 	belongs_to :user
 
 	accepts_nested_attributes_for :exercise_types
+
+	# Implements search for workout types.
+  # * *Args*    :
+  #   - search query in string format
+  # * *Returns* :
+  #   - returns the workout types with names that contain one or more words from the query
+  def self.search(query)
+    where("LOWER(type_name) like ?", "%#{query}%")
+  end
+
 end
