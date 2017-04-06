@@ -13,7 +13,8 @@
 
 	<div class="clear"></div>
 
-	<ul class="nav nav-tabs">
+	<!-- <ul class="nav nav-tabs hidden-xs" id="tabs_or_pills"> -->
+	<ul class="nav" id="tabs_or_pills">	
 	  <li class="active"><a data-toggle="tab" href="#home">All Public Workout Routines 
 	  	<span class="badge" id="public_routines_badge"><%= @workout_types.where(public: true).count %></span></a>
 	  </li>
@@ -21,6 +22,17 @@
 	  	<span class="badge" id="my_routines_badge"><%= @workout_types.where(user_id: current_user).count %></span></a>
 	  </li>
 	</ul>
+
+	<!-- <ul class="nav">
+	  <li class="active"><a data-toggle="tab" href="#home">All Public Workout Routines 
+	  	<span class="badge" id="public_routines_badge"><%= @workout_types.where(public: true).count %></span></a>
+	  </li>
+	  <li><a data-toggle="tab" href="#menu1">My Workout Routines
+	  	<span class="badge" id="my_routines_badge"><%= @workout_types.where(user_id: current_user).count %></span></a>
+	  </li>
+	</ul> -->
+
+
 
 	<div class="tab-content">
 	  <div id="home" class="tab-pane fade in active">
@@ -101,6 +113,7 @@
 				      	<small>Added by: <%= workout_type.user.username %></small>
 				    	<% end %>
 				    	<br />
+				    	<!-- action buttons --> 
 				    	<div>
 					    	<%= link_to workout_type_path(workout_type), :class => 'btn btn-primary' do %>
 									View &nbsp;
@@ -110,10 +123,15 @@
 									Edit &nbsp;
 									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 								<% end %>
+								<%= link_to workout_type_remove_path(workout_type), data: {confirm: "Are you sure you want to delete this routine?"}, :class => 'btn btn-danger' do %>
+									Delete &nbsp;
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								<% end %>
 								<%= link_to new_workout_type_workout_path(workout_type), :class => 'btn btn-primary' do %>
 									Record Your Results &nbsp;
 									<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								<% end %>
+								<!-- end action buttons --> 
 							</div>
 						</div>
 					<% end %>	
@@ -129,4 +147,14 @@
 	<h2>No routines have yet been added. Please click on <%= link_to 'New Workout Routine', new_workout_type_path =%> to add a new routine.</h2>
 <% end %>
 
-<!-- </div> -->
+<div id="desktopTest" class="hidden-xs"></div>
+
+<script>
+$( document ).ready(function() {
+    if ($('#desktopTest').is(':hidden')) {
+    	$('#tabs_or_pills').addClass("nav-pills");
+	} else {
+			$('#tabs_or_pills').addClass("nav-tabs");
+	}
+});
+</script>

@@ -1,118 +1,126 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>StrengthTracker</title>
-  <%= favicon_link_tag 'Dumbbell-48.png' %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+  <head>
+    <title>RoutineTracker</title>
+    <%= favicon_link_tag 'Dumbbell-48.png' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
 
-<body>
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <%= link_to 'Routine Tracker', root_path, :class=>'navbar-brand' %>
-      <br />
-      <br />
-      <div class="slogan">
-        <h1 style="font-style: italic; color: white">
-          MAKE EVERY POUND COUNT!
-        </h1>
-         <div style="color: white">
-          Join free to create workout routines, record your results, and see your progress.
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <%= link_to 'Routine Tracker', root_path, :class=>'navbar-brand' %>
+          <br />
+          <br />
+          <div class="slogan">
+            <h1 style="font-style: italic; color: white">
+              MAKE EVERY POUND COUNT!
+            </h1>
+             <div style="color: white">
+              Join free to create workout routines, record your results, and see your progress.
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <ul class="nav navbar-nav navbar-right">
-      <% if user_signed_in? %>
-        <li class="current-user"><%= "Welcome, " + current_user.username + "!"%></li>
-        <li class="navbar-option"><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
-      <% else %>
-        <li class="navbar-option"><%= link_to 'Sign in', new_user_session_path %></li>
-        <li class="navbar-option"><%= link_to 'Sign up', new_user_registration_path %></li>
-      <% end %>
-    </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <% if user_signed_in? %>
+            <li class="current-user"><%= "Welcome, " + current_user.username + "!"%></li>
+            <li class="navbar-option"><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li class="navbar-option"><%= link_to 'Sign in', new_user_session_path %></li>
+            <li class="navbar-option"><%= link_to 'Sign up', new_user_registration_path %></li>
+          <% end %>
+        </ul>
 
-    <div class="clear"></div>
+        <div class="clear"></div>
 
-    <!-- if user not signed in, change links to point to sign-in page -->
-    <% if user_signed_in? %>
-      <ul class="nav navbar-nav navbar-left">
-        <li class="navbar-option">
-          <%= link_to root_path do %>
-            <i class="glyphicon glyphicon-eye-open"></i>
-            View Workout Routines
-          <% end %>
-        </li>      
-        <li class="navbar-option">
-          <%= link_to new_workout_type_path do %>
-            <i class="glyphicon glyphicon-plus-sign"></i>
-            New Workout Routine
-          <% end %>
-        </li>
-        <li class="navbar-option">
-          <%= link_to user_workouts_path(current_user) do %>
-            <i class="glyphicon glyphicon-search"></i>
-            My Workout History
-            <span class="badge"><%= Workout.where(user_id: current_user).count %></span></a>
-          <% end %>
-        </li>
-        <li class="navbar-option">
-          <% workout_type = 'last' %>
-          <%= link_to new_workout_type_workout_path(workout_type) do %>
-            <i class="glyphicon glyphicon-pencil"></i>
-            Repeat Last Workout
-          <% end %>
-        </li>
-      </ul>
-    <% else %>
-      <ul class="nav navbar-nav navbar-left">
-        <li class="navbar-option">
-          <%= link_to root_path do %>
-            <i class="glyphicon glyphicon-eye-open"></i>
-            View Workout Routines
-          <% end %>
-        </li>      
-        <li class="navbar-option">
-          <%= link_to new_user_session_path do %>
-            <i class="glyphicon glyphicon-plus-sign"></i>
-            New Workout Routine
-          <% end %>
-        </li>
-        <li class="navbar-option">
-          <%= link_to new_user_session_path do %>
-            <i class="glyphicon glyphicon-search"></i>
-            My Workout History
-          <% end %>
-        </li> 
-      </ul>
-    <% end %> 
+        <!-- if user not signed in, change links to point to sign-in page -->
+        <% if user_signed_in? %>
+          <ul class="nav navbar-nav navbar-left">
+            <li class="navbar-option">
+              <%= link_to root_path do %>
+                <i class="glyphicon glyphicon-eye-open"></i>
+                View Workout Routines
+              <% end %>
+            </li>      
+            <li class="navbar-option">
+              <%= link_to new_workout_type_path do %>
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                New Workout Routine
+              <% end %>
+            </li>
+            <li class="navbar-option">
+              <%= link_to user_workouts_path(current_user) do %>
+                <i class="glyphicon glyphicon-search"></i>
+                My Workout History
+                <span class="badge"><%= Workout.where(user_id: current_user).count %></span></a>
+              <% end %>
+            </li>
+            <li class="navbar-option">
+              <% workout_type = 'last' %>
+              <%= link_to new_workout_type_workout_path(workout_type) do %>
+                <i class="glyphicon glyphicon-pencil"></i>
+                Repeat Last Workout
+              <% end %>
+            </li>
+          </ul>
+        <% else %>
+          <ul class="nav navbar-nav navbar-left">
+            <li class="navbar-option">
+              <%= link_to root_path do %>
+                <i class="glyphicon glyphicon-eye-open"></i>
+                View Workout Routines
+              <% end %>
+            </li>      
+            <li class="navbar-option">
+              <%= link_to new_user_session_path do %>
+                <i class="glyphicon glyphicon-plus-sign"></i>
+                New Workout Routine
+              <% end %>
+            </li>
+            <li class="navbar-option">
+              <%= link_to new_user_session_path do %>
+                <i class="glyphicon glyphicon-search"></i>
+                My Workout History
+              <% end %>
+            </li> 
+          </ul>
+        <% end %> 
 
-    <ul class="nav navbar-nav navbar-right">
-      <li class="navbar-option navbar-right">
-          <%= link_to faq_path do %>
-            <i class="glyphicon glyphicon-question-sign"></i>
-            Frequently Asked Questions
-          <% end %>
-        </li>    
-    </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="navbar-option navbar-right">
+              <%= link_to faq_path do %>
+                <i class="glyphicon glyphicon-question-sign"></i>
+                Frequently Asked Questions
+              <% end %>
+            </li>    
+        </ul>
 
-  </div><!-- /.container-fluid -->
-</nav>
+        <div id="desktopTest" class="hidden-xs"></div>
 
-<% if notice.present? %>
-  <p class="alert alert-info"><%= notice %></p>
-<% end %>
-<% if alert.present? %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
+      </div><!-- /.container-fluid -->
+    </nav>
 
-<%= yield %>
+    <% if notice.present? %>
+      <p class="alert alert-info"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
 
-</body>
+    <%= yield %>
+  </body>
 </html>
+
+<script>
+if ($('#desktopTest').is(':hidden')) {
+    // device is == eXtra Small
+} else {
+    // device is >= SMaller 
+}
+</script>
