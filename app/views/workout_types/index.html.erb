@@ -4,15 +4,13 @@
 		<%= form_tag(workout_types_path, :method => "get", id: "search-form") do %>
 	    <div class="input-group">
 	      <%= text_field_tag :search, params[:search], class: "span2 form-control", id: "search-input", placeholder: "Search Routines for..."%>
-	      <!-- In order to have the "search" icon in the button, we need to use plain HTML instead 
-	           of using a Rails form helper -->
 	      <span class="input-group-btn">
-	      <button class="btn btn-info" id="search-button" type="submit"><span class="glyphicon glyphicon-search"></span>Search!</button>
+	      	<button class="btn btn-info" id="search-button" type="submit">
+	      		<span class="glyphicon glyphicon-search"></span>Search!</button>
 	      </span>
 	    </div>
 	  <% end %>
 	</div>
-
 
 	<div class="clear"></div>
 
@@ -26,17 +24,6 @@
 	  </li>
 	</ul>
 
-	<!-- <ul class="nav">
-	  <li class="active"><a data-toggle="tab" href="#home">All Public Workout Routines 
-	  	<span class="badge" id="public_routines_badge"><%= @workout_types.where(public: true).count %></span></a>
-	  </li>
-	  <li><a data-toggle="tab" href="#menu1">My Workout Routines
-	  	<span class="badge" id="my_routines_badge"><%= @workout_types.where(user_id: current_user).count %></span></a>
-	  </li>
-	</ul> -->
-
-
-
 	<div class="tab-content">
 	  <div id="home" class="tab-pane fade in active">
 	    <h3>Public Routines</h3>
@@ -46,7 +33,7 @@
 						<p class="workout_type-name"><%= link_to workout_type.type_name, workout_type_path(workout_type) %></p>
 						<p><%= truncate(workout_type.description, length: 200) %></p>
 						<% workout_type.exercise_types.each do |exercise_type| %>
-							<div><%= exercise_type.name %></div>
+							<div><small><%= exercise_type.name %></small></div>
 						<% end %>
 						<br />
 
@@ -109,11 +96,12 @@
 							</p>
 							<p><%= truncate(workout_type.description, length: 200) %></p>
 							<% workout_type.exercise_types.each do |exercise_type| %>
-								<div><%= exercise_type.name %></div>
+								<div><small><%= exercise_type.name %></small></div>
 							<% end %>
 							<br />
 							<% if workout_type.user.present? %>
-				      	<small>Added by: <%= workout_type.user.username %></small>
+				      	<small>Added by: <%= workout_type.user.username %></small> | 
+			      	Used <span class="badge"><%= Workout.where(workout_type_id: workout_type.id).count %></span> times
 				    	<% end %>
 				    	<br />
 				    	<!-- action buttons --> 
