@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407053341) do
+ActiveRecord::Schema.define(version: 20170415033751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170407053341) do
     t.integer  "workout_type_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "load"
+    t.string   "load"
   end
 
   add_index "exercise_types", ["workout_type_id"], name: "index_exercise_types_on_workout_type_id", using: :btree
