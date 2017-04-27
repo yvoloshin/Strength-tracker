@@ -86,3 +86,22 @@ run_bodyweight_exercise_names.each do |name|
 		)
 end
 
+@ten_to_one_workout_type = WorkoutType.create({
+	user_id: 1, 
+	type_name: "10-1 Full Body Workout", 
+	description: "This workout is from Jen Eddins at peanutbutterrunner.com. The exercises in each set are meant to be done as a circuit. Start with 10 reps of each exercise in a set and work down to 1. The original workout had front squats, which I replaced with one-legged squats here.",
+	public: true,
+	is_visible: true
+})
+
+ten_to_one_exercise_names = ['One-legged Squats', 'Pull Ups (may be assisted)', 'Box Jumps or Step Ups', 'Push Ups']
+
+ten_to_one_exercise_names.each do |name|
+	@ten_to_one_workout_type.exercise_types.create(
+			name: name,
+			sets: 10,
+			reps: 10,
+			load: '',
+		)
+end
+

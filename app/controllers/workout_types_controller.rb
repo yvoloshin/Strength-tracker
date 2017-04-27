@@ -71,7 +71,7 @@ class WorkoutTypesController < ApplicationController
   end
 
 	def workout_type_params
-		params.require(:workout_type).permit(:type_name, :public, exercise_types_attributes: [:name, :sets, :reps, :load])
+		params.require(:workout_type).permit(:type_name, :public, :description, exercise_types_attributes: [:name, :sets, :reps, :load])
 	end
 
 	def exercise_params
