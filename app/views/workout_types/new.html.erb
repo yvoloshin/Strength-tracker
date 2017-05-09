@@ -1,8 +1,9 @@
+
 <div class="workout-box col-xs-10 col-xs-offset-1" id="new-workout-type">
 	<%= simple_form_for (@workout_type) do |f| %>
 		<%= f.input :type_name, label: 'What will you call this workout?' %>
 		<br />
-		<%= f.input :description, label: 'Add a brief description of this workout.' %>
+		<%= f.input :description, label: 'Add a brief description of this workout.', input_html: { class: 'mceEditor' } %>
 	  <br />
 	  <p>Who should be able to see this workout?</p>
 
@@ -32,3 +33,4 @@
 		<%= f.submit 'Create Workout Routine', :class=>"btn btn-primary", :id=>"routine_submit" %>
 	<% end %>
 </div>
+

@@ -31,7 +31,7 @@
 				<% if workout_type.public == true %>
 					<div class="workout-box col-xs-10 col-xs-offset-1">
 						<p class="workout_type-name"><%= link_to workout_type.type_name, workout_type_path(workout_type) %></p>
-						<p><%= truncate(workout_type.description, length: 200) %></p>
+						<p><%= truncate(workout_type.description.html_safe, length: 200) %></p>
 						<% workout_type.exercise_types.each do |exercise_type| %>
 							<div><small><%= exercise_type.name %></small></div>
 						<% end %>
