@@ -7,16 +7,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
     
-    <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+    <%= tinymce_assets %>
     <script>
       tinymce.init({
         selector: '.mceEditor',
         menubar: false,
-        plugins: "link autolink",
+        plugins: "link autolink image lists",
         menubar: "insert",
-        toolbar: "undo redo | styleselect | bold italic | link image",
-        // toolbar: 'undo redo | styleselect | bold italic | link image',
-        // plugins: "autolink"
+        toolbar: "undo redo | styleselect | bold italic | link image bullist numlist",
       });
     </script>
     
