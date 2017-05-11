@@ -65,3 +65,5 @@ end
 
 gem 'tinymce-rails'
 
+gem 'rails-html-sanitizer'
+
