@@ -45,6 +45,9 @@
 			<% exercise_number += 1 %>
 		<% end %>
 
+		<%= link_to root_path, data: {confirm: "Are you sure you want to leave this form? Any data you may have entered has not been saved."}, :class => 'btn btn-default' do %>
+    	Cancel &nbsp;
+   	<% end %>
 		<%= f.submit 'Save', :class=>"btn btn-primary", :id=>"workout_submit" %>
 	<% end %>
 </div>
