@@ -12,42 +12,56 @@
 		</p>
 	<% end %>
 
-	<h3>Enter today's results</h3> 
+	<h3 class="todays-results">Enter today's results</h3> 
 	<br />
 
-	<%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>
-
-		<% exercise_number = 0 %>
-		<%= while exercise_number <	@exercises.count do %>
-			<%= f.simple_fields_for :exercises, @exercises[exercise_number] do |builder| %>
-				<%= builder.input :name, :placeholder => :name, :input_html => { :value => builder.object.name }, label: false %>
-				<% set_number = 1 %>
-				<table class="table table-bordered table-striped table-responsive">
-				  <thead>
-				    <tr>
-				      <th><%= "Set" %></th>
-				      <th><%= "Reps" %></th>
-				      <th><%= "Load, lb (leave blank if bodyweight)" %></th>
-				    </tr>
-				  </thead>
-				  <tbody>
-						<%= builder.simple_fields_for :completed_sets do |set| %>
-					  	<tr>
-				        <td><%= set_number %></td>
-				        <td><%= set.input :reps, label: false %></td>
-				        <td><%= set.input :load, label: false %></td>
-	      			</tr>
-			      	<% set_number += 1 %>
-			      <% end %>
-				  </tbody>
-				</table>
-			<% end %>
-			<% exercise_number += 1 %>
-		<% end %>
-
-		<%= link_to root_path, data: {confirm: "Are you sure you want to leave this form? Any data you may have entered has not been saved."}, :class => 'btn btn-default' do %>
-    	Cancel &nbsp;
-   	<% end %>
-		<%= f.submit 'Save', :class=>"btn btn-primary", :id=>"workout_submit" %>
+	<% exercise_type_sets = Array.new %>
+	<% @workout_type.exercise_types.each do |exercise_type| %>
+		<% exercise_type_sets.push(exercise_type.sets) %>
 	<% end %>
-</div>
+
+	<% circuit_number = 0 %>
+	<%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>
+		<%= while circuit_number < exercise_type_sets.max do %>
+
+			<h4><strong>Circuit <%= circuit_number+1 %></strong></h4><br />
+			<% exercise_number = 0 %>
+			<div class="well">
+				<%= while exercise_number <	@exercises.count do %>
+
+					<% if circuit_number <= @workout_type.exercise_types[exercise_number].sets %>
+
+							<% if @exercises[exercise_number].completed_sets[circuit_number].present? %>
+
+								<%= f.simple_fields_for :exercises, @exercises[exercise_number] do |builder| %>
+									<%= builder.input :name, :placeholder => :name, :input_html => { :value => builder.object.name, :class => "exercise-name" }, label: false %>
+									<table class="table table-bordered table-striped table-responsive">
+									  <tbody>	
+									  	<tr>
+									  		<%= builder.simple_fields_for :completed_sets, @exercises[exercise_number].completed_sets[circuit_number] do |set| %>
+									        <td><%= set.input :reps, placeholder: 'Reps', label: false %></td>
+									        <td><%= set.input :load, placeholder: 'Load', label: false %></td>
+								        <% end %>
+					      			</tr>	      
+									  </tbody>
+									</table>
+								<% end %>
+							<% end %>
+
+					<% end %>
+					<% exercise_number += 1 %>
+				<% end %> <!-- end exercise -->
+			</div>	
+			<% circuit_number += 1 %>
+		<% end %> <!-- end circuit -->
+
+		<!-- action buttons -->
+		<%= link_to root_path, data: {confirm: "Are you sure you want to leave this form? Any data you may have entered has not been saved."}, :class => 'btn btn-default' do %>
+	  	Cancel &nbsp;
+	 	<% end %>
+		<%= f.submit 'Save', :class=>"btn btn-primary", :id=>"workout_submit" %>
+
+	<% end %> <!-- end form -->
+
+
+	
