@@ -3,36 +3,34 @@
 	<h3><%= @workout.created_at.strftime "%B %e, %Y" %></h3>
 	<br />
 
-  <% @workout.exercises.each do |exercise| %>
-  	<div class="pull-left exercise-name"><%= exercise.name %></div>
+	<% @exercise_names.each do |exercise_name| %>
+		<div class="pull-left exercise-name"><%= exercise_name %></div>
   	<table class="table table-bordered table-striped table-responsive">
 		  <thead>
 		    <tr>
-		      <th><%= "Set" %></th>
 		      <th><%= "Reps" %></th>
 		      <th><%= "Load (lb)" %></th>
 		    </tr>
 		  </thead>
-    	<% set_number = 1 %>
-    	<tbody>
-	    	<% exercise.completed_sets.each do |set| %>
-		      <tr>
-		        <td><%= set_number %></td>
-		        <td><%= set.reps %></td>
-		        <td><%= set.load %></td>
-		      </tr>
-		      <% set_number += 1 %>
-	      <% end %>
-	    </tbody>
-    </table>
-  <% end %>
+			<% @workout.exercises.each do |exercise| %>
+				<% if exercise_name == exercise.name %>
+					<% exercise.completed_sets.each do |set| %>
+			      <tr>
+			        <td><%= set.reps %></td>
+			        <td><%= set.load %></td>
+			      </tr>
+		      <% end %> 
+		    <% end %>
+	    <% end %>
+    </table>	
+	<% end %>
  
   <%= link_to 'Repeat This Workout', new_workout_type_workout_path(@workout.workout_type_id), :class => 'btn btn-primary' %>
 	<br />
 	<br />
   <%= link_to user_workouts_path(@workout.user) do %>
 		<span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
-		Back to List of Your Workouts &nbsp;
+		Back to Workout History &nbsp;
 	<% end %>
                
 </div>

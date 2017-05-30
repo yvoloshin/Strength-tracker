@@ -60,6 +60,11 @@ class WorkoutsController < ApplicationController
 	def show
 		@workout = Workout.find(params[:id])
 		@user = current_user
+		@exercise_names = Array.new
+		@workout.exercises.each do |exercise|
+			@exercise_names.push(exercise.name)
+		end
+		@exercise_names = @exercise_names.uniq
 	end
 
 	def destroy
