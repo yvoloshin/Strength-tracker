@@ -16,7 +16,7 @@
 	    <% @workout_type.exercise_types.each do |exercise_type| %>
 		    <% if exercise_type.name.present? %>
 		      <tr>
-		        <td><%= exercise_type.name %></td>
+		        <td><a href=<%= exercise_type.url %> ><%= exercise_type.name %></a></td>
 		        <td><%= exercise_type.sets %></td>
 		        <td><%= exercise_type.reps %></td>
 		        <td><%= exercise_type.load %></td>
