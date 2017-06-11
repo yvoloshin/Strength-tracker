@@ -26,12 +26,80 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
-		      <%= render 'exercise_fields_table', :f => builder %>
-		    <% end %>
+		  	<div class="large">
+			    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
+			      <%= render 'exercise_fields_table_large', :f => builder %>
+			    <% end %>
+		    </div>
+		    <div class="med">
+			    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
+			      <%= render 'exercise_fields_table_med', :f => builder %>
+			    <% end %>
+		    </div>
+		    <div class="xs">
+			    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
+			      <%= render 'exercise_fields_table_xs', :f => builder %>
+			    <% end %>
+		    </div>
 		  </tbody>
 		</table>
 		<%= f.submit 'Create Workout Routine', :class=>"btn btn-primary", :id=>"routine_submit" %>
 	<% end %>
 </div>
+
+<div id="xs" class="hidden-md-up"></div>
+<div id="md" class="hidden-sm-down.hidden-lg-up"></div>
+<div id="lg" class="hidden-md-down"></div>
+
+<style>
+.large {
+	display: hidden;
+}
+</style>
+<script>
+
+$( document ).ready(function() {
+    if ($('#xs').is(':hidden')) {
+    	$('.med').css('display', 'none');
+    	$('.xs').css('display', 'none');
+	} 
+});
+
+// function isBreakpoint( alias ) {
+//     return $('.device-' + alias).is(':hidden');
+// }
+
+// if( isBreakpoint('xs') ) {
+//     $('.med').css('display', 'none');
+//     $('.large').css('display', 'none');
+// }
+
+// if( isBreakpoint('med') ) {
+//     $('.xs').css('display', 'none');
+//     $('.large').css('display', 'none');
+// }
+
+// if( isBreakpoint('large') ) {
+//     $('.med').css('display', 'none');
+//     $('.xs').css('display', 'none');
+// }
+
+// $(window).resize(function () {
+//     if( isBreakpoint('xs') ) {
+//     $('.med').css('display', 'none');
+//     $('.large').css('display', 'none');
+// }
+
+// if( isBreakpoint('med') ) {
+//     $('.xs').css('display', 'none');
+//     $('.large').css('display', 'none');
+// }
+
+// if( isBreakpoint('large') ) {
+//     $('.med').css('display', 'none');
+//     $('.xs').css('display', 'none');
+// }
+// });
+</script>
+
 

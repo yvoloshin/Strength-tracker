@@ -20,8 +20,9 @@
 		<% exercise_type_sets.push(exercise_type.sets) %>
 	<% end %>
 
-	<% circuit_number = 0 %>
 	<%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>
+
+	<% circuit_number = 0 %>
 		<%= while circuit_number < exercise_type_sets.max do %>
 
 			<h4><strong>Circuit <%= circuit_number+1 %></strong></h4><br />
