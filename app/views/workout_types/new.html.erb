@@ -1,3 +1,13 @@
+<script>
+  tinymce.init({
+    selector: '.mceEditor',
+    menubar: false,
+    branding: false,
+    plugins: "link autolink lists",
+    menubar: "insert",
+    toolbar: "undo redo | cut copy paste pastetext | styleselect | bold italic | link bullist numlist",
+  });
+</script>
 
 <div class="workout-box col-xs-10 col-xs-offset-1" id="new-workout-type">
 	<%= simple_form_for (@workout_type) do |f| %>

@@ -31,22 +31,22 @@
 
 					<% if circuit_number <= @workout_type.exercise_types[exercise_number].sets %>
 
-							<% if @exercises[exercise_number].completed_sets[circuit_number].present? %>
+						<% if @exercises[exercise_number].completed_sets[circuit_number].present? %>
 
-								<%= f.simple_fields_for :exercises, @exercises[exercise_number] do |builder| %>
-									<%= builder.input :name, :placeholder => :name, :input_html => { :value => builder.object.name, :class => "exercise-name" }, label: false %>
-									<table class="table table-bordered table-striped table-responsive">
-									  <tbody>	
-									  	<tr>
-									  		<%= builder.simple_fields_for :completed_sets, @exercises[exercise_number].completed_sets[circuit_number] do |set| %>
-									        <td><%= set.input :reps, placeholder: 'Reps', label: false %></td>
-									        <td><%= set.input :load, placeholder: 'Load', label: false %></td>
-								        <% end %>
-					      			</tr>	      
-									  </tbody>
-									</table>
-								<% end %>
+							<%= f.simple_fields_for :exercises, @exercises[exercise_number] do |builder| %>
+								<%= builder.input :name, :placeholder => :name, :input_html => { :value => builder.object.name, :class => "exercise-name" }, label: false %>
+								<table class="table table-bordered table-striped table-responsive">
+								  <tbody>	
+								  	<tr>
+								  		<%= builder.simple_fields_for :completed_sets, @exercises[exercise_number].completed_sets[circuit_number] do |set| %>
+								        <td><%= set.input :reps, placeholder: 'Reps', label: false %></td>
+								        <td><%= set.input :load, placeholder: 'Load', label: false %></td>
+							        <% end %>
+				      			</tr>	      
+								  </tbody>
+								</table>
 							<% end %>
+						<% end %>
 
 					<% end %>
 					<% exercise_number += 1 %>
