@@ -17,22 +17,28 @@
 
 	<% exercise_type_sets = Array.new %>
 	<% @workout_type.exercise_types.each do |exercise_type| %>
-		<% exercise_type_sets.push(exercise_type.sets) %>
+		<% if exercise_type.sets.nil? %>
+			<% exercise_type_sets.push(1) %>
+		<% else %>
+		<% exercise_type_sets.push(exercise_type.sets).reject! { |item| item.nil? || item == '' } %>
+		<% end %>
 	<% end %>
 
 	<% circuit_number = 0 %>
 	<%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>
+	
 		<%= while circuit_number < exercise_type_sets.max do %>
 
 			<h4><strong>Circuit <%= circuit_number+1 %></strong></h4><br />
 			<% exercise_number = 0 %>
 			<div class="well">
 				<%= while exercise_number <	@exercises.count do %>
-
-					<% if circuit_number <= @workout_type.exercise_types[exercise_number].sets %>
-
+					<% exercise_sets = @workout_type.exercise_types[exercise_number].sets %>
+					<% if exercise_sets.nil? %>
+						<% exercise_sets = 1 %>
+					<% end %>	
+					<% if circuit_number <= exercise_sets %>
 						<% if @exercises[exercise_number].completed_sets[circuit_number].present? %>
-
 							<%= f.simple_fields_for :exercises, @exercises[exercise_number] do |builder| %>
 								<%= builder.input :name, :placeholder => :name, :input_html => { :value => builder.object.name, :class => "exercise-name" }, label: false %>
 								<table class="table table-bordered table-striped table-responsive">

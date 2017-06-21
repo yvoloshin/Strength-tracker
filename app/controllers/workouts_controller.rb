@@ -33,7 +33,13 @@ class WorkoutsController < ApplicationController
 
 		@exercises.each do |exercise|
 			sets = ExerciseType.find(exercise.exercise_type_id).sets
-		  @completed_sets = Array.new(sets) { exercise.completed_sets.build }
+			if sets.nil?
+				# If the user has not specified the number of sets, make sets = 1.
+	  		sets = 1
+	  	else 
+	  		@completed_sets = Array.new(sets) { exercise.completed_sets.build }
+	  	end
+	  		
 		end
 	end
 	
