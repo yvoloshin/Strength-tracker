@@ -36,10 +36,8 @@ class WorkoutsController < ApplicationController
 			if sets.nil?
 				# If the user has not specified the number of sets, make sets = 1.
 	  		sets = 1
-	  	else 
-	  		@completed_sets = Array.new(sets) { exercise.completed_sets.build }
-	  	end
-	  		
+	  	end 
+	  	@completed_sets = Array.new(sets) { exercise.completed_sets.build }	
 		end
 	end
 	
