@@ -2,7 +2,7 @@ class WorkoutsController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :create]
 
 	def index
-		@workouts = current_user.workouts.all
+		@workouts = current_user.workouts.all.order(created_at: :desc)
 
 		respond_to do |format|
 	    format.html
