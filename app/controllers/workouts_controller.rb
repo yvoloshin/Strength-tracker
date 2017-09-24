@@ -71,6 +71,20 @@ class WorkoutsController < ApplicationController
 		@exercise_names = @exercise_names.uniq
 	end
 
+	def edit
+		@workout = Workout.find(params[:id])
+		@user = current_user
+		@exercise_names = Array.new
+		@workout.exercises.each do |exercise|
+			@exercise_names.push(exercise.name)
+		end
+		@exercise_names = @exercise_names.uniq
+		
+		if @workout.user != current_user
+			return render :text => 'Not Allowed', :status => :forbidden
+		end
+	end
+
 	def destroy
 		@workout = Workout.find(params[:id])
     @user = current_user

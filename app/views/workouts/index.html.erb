@@ -20,6 +20,10 @@
   						View &nbsp;
   						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
   					<% end %>
+            <%= link_to edit_user_workout_path(workout.user, workout), :class => 'btn btn-primary' do %>
+                  Edit &nbsp;
+                  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            <% end %>
   					<%= link_to user_workout_path(workout.user, workout), method: :delete, data: {confirm: "Are you sure you want to delete this workout?"}, :class => 'btn btn-danger' do %>
                Delete &nbsp;
                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
