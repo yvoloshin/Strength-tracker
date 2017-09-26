@@ -16,6 +16,12 @@ class WorkoutTypesController < ApplicationController
 
 	def create
 		@workout_type = current_user.workout_types.create(workout_type_params)
+		@exercise_types = @workout_type.exercise_types
+		@exercise_types.each do |exercise_type|
+			if exercise_type.name.blank?
+				exercise_type.destroy
+			end
+		end
 
 		if @workout_type.valid?
 			redirect_to root_path
