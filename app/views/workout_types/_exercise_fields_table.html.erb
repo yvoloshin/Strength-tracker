@@ -1,7 +1,11 @@
 <tr>
-  <td><%= f.input :name, label: false %></td>
-  <td><%= f.input :sets, label: false %></td>
-  <td><%= f.input :reps, label: false %></td>
-  <td><%= f.input :load, label: false %></td>
-  <td><%= f.input :url, label: false %></td>
+  <td colspan="12"><%= f.input :name, label: "Exercise Name" %></td>
+</tr>
+<tr>
+  <td colspan="4"><%= f.input :sets, label: "Sets" %></td>
+  <td colspan="4"><%= f.input :reps, label: "Reps" %></td>
+  <td colspan="4"><%= f.input :load, label: "Load" %></td>
+</tr>
+<tr class="last_row">
+  <td colspan="12"><%= f.input :url, label: "Link to instructions" %></td>
 </tr>

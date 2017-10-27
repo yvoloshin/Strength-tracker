@@ -25,16 +25,8 @@
 
 	 	<h3>Now enter up to 10 exercises:</h3> 
 	  <br />
-		<table class="table table-bordered table-striped table-responsive">
-		  <thead>
-		    <tr>
-		      <th>Exercise Name</th>
-		      <th>Sets<br /><small><i>(assuming 1 set if left blank)</i></small></th>
-		      <th>Reps</th>
-		      <th>Load, lb or % max<br /><small><i>(leave blank if bodyweight)</i></small></th>
-		      <th>Link to instructions on how to perform this exercise</th>
-		    </tr>
-		  </thead>
+		<table class="table table-responsive new_routine">
+	
 		  <tbody>
 		    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
 		      <%= render 'exercise_fields_table', :f => builder %>
