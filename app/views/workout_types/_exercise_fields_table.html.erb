@@ -1,11 +1,23 @@
-<tr>
-  <td colspan="12"><%= f.input :name, label: "Exercise Name" %></td>
-</tr>
-<tr>
-  <td colspan="4"><%= f.input :sets, label: "Sets" %></td>
-  <td colspan="4"><%= f.input :reps, label: "Reps" %></td>
-  <td colspan="4"><%= f.input :load, label: "Load" %></td>
-</tr>
-<tr class="last_row">
-  <td colspan="12"><%= f.input :url, label: "Link to instructions" %></td>
-</tr>
+<div class="workout-box">
+	<div class="row routine-row">
+		<div class="col-xs-12">
+	  <%= f.input :name, label: "Exercise Name" %>
+	  </div>
+	</div>
+	<div class="row routine-row">
+		<div class="col-xs-4">
+	  <%= f.input :sets, label: "Sets" %>
+		</div>
+	  <div class="col-xs-4">
+	  <%= f.input :reps, label: "Reps" %>
+		</div>
+	  <div class="col-xs-4">
+	  <%= f.input :load, label: "Load" %>
+	  </div>
+	</div>
+	<div class="row routine-row">
+		<div class="col-xs-12">
+	  <%= f.input :url, label: "Link to instructions" %>
+	  </div>
+	</div>
+</div>

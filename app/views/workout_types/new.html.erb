@@ -24,15 +24,9 @@
     <%= f.radio_button :public, false %>
 
 	 	<h3>Now enter up to 10 exercises:</h3> 
-	  <br />
-		<table class="table table-responsive new_routine">
-	
-		  <tbody>
-		    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
-		      <%= render 'exercise_fields_table', :f => builder %>
-		    <% end %>
-		  </tbody>
-		</table>
+	    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
+	      <%= render 'exercise_fields_table', :f => builder %>
+	    <% end %>
 		<%= f.submit 'Create Workout Routine', :class=>"btn btn-primary", :id=>"routine_submit" %>
 	<% end %>
 </div>
