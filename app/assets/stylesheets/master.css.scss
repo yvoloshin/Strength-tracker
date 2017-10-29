@@ -24,6 +24,21 @@ body {
   text-align: center
 }
 
+$blue: #c9c9ff;
+$green: #e1f7d5;
+$purple: #f1cbff;
+$red: #ffbdbd;
+
+$colors: $blue, $green, $purple, $red;
+$key: random( length($colors) );
+$nth: nth( $colors, $key );
+
+$main-color: $nth !default;
+
+.workout-box .random-color-box:nth-child(odd) {
+    background: $main-color;
+}
+
 .routine-row {
   padding-top:10px;
   padding-bottom:10px;

@@ -24,10 +24,42 @@
     <%= f.radio_button :public, false %>
 
 	 	<h3>Now enter up to 10 exercises:</h3> 
+	 	<div class="mobile">
 	    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
 	      <%= render 'exercise_fields_table', :f => builder %>
 	    <% end %>
+	  </div>
+	  <div class="desktop">
+	  	<table class="table table-bordered table-striped table-responsive">
+			  <thead>
+			    <tr>
+			      <th>Exercise Name</th>
+			      <th>Sets<br /><small><i>(assuming 1 set if left blank)</i></small></th>
+			      <th>Reps</th>
+			      <th>Load, lb or % max<br /><small><i>(leave blank if bodyweight)</i></small></th>
+			      <th>Link to instructions on how to perform this exercise</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
+			      <%= render 'exercise_fields_table_desktop', :f => builder %>	
+			    <% end %>
+			  </tbody>
+		</table>
+	  </div>
 		<%= f.submit 'Create Workout Routine', :class=>"btn btn-primary", :id=>"routine_submit" %>
 	<% end %>
 </div>
+
+<div id="desktopTest" class="hidden-xs"></div>
+
+<script>
+$( document ).ready(function() {
+    if ($('#desktopTest').is(':hidden')) {
+    	$('.desktop').attr("hidden", true);
+	} else {
+			$('.mobile').attr("hidden", true);
+	}
+});
+</script>
 
