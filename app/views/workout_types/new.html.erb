@@ -63,11 +63,8 @@
 
 <div id="desktopTest" class="hidden-xs"></div>
 
-
-
 <script>
 // color palettes are taken from http://www.color-hex.com/color-palettes
-	
 	palettes = {
 		'sunrise': ['#e65c6f', '#f98d77', '#ffcb69', '#ffe269',	'#fffa85', '#fffa85', '#ffe269', '#ffcb69', '#f98d77', '#e65c6f'],
 		'blueskies': ['#76b8cc', '#87ccdb', '#a2d9e1', '#bfe4e5', '#d0eee6', '#d0eee6', '#bfe4e5', '#a2d9e1', '#87ccdb', '#76b8cc'],
@@ -80,10 +77,8 @@
 	palette_name = palette_names[Math.floor(Math.random()*palette_names.length)];
 	palette = palettes[palette_name];
 	
-	// exercise_colors_key = Math.floor(Math.random()*exercise_colors.length);
 	i = 0;
 	$('.random-color-box').each(function(n) {
-		// var exercise_color = exercise_colors[Math.floor(Math.random()*exercise_colors.length)];
     $(this).css('background', palette[i]);
     i++;
   });
