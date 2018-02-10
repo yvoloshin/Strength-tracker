@@ -17,4 +17,6 @@
 //= require_tree .
 
 //= require tinymce-jquery
+//= require box_colors
+//= require screen_size
 
