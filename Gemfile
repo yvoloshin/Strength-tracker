@@ -21,7 +21,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bootstrap-sass', '~> 3.3.5.1'
-gem 'sprockets', '2.11.0'
+gem 'sprockets', '~> 2.12.5'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 gem 'simple_form'
