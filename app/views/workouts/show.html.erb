@@ -25,6 +25,29 @@
     </table>	
 	<% end %>
  
+ 	<br />
+
+ 	<div class="pull-left">
+ 		<% unless @previous_workout.nil? %>
+	 		<h3> Comparing with the last time you recorded <%= @workout.workout_type_name %>
+	 			on <%= @previous_workout.created_at.strftime "%B %e, %Y" %>
+	 		</h3>
+	 		<br />
+ 			<% @comparisons.each do |key, array| %>
+  
+			<%= key %>
+			<br />
+	    <%= 'Completed sets: ' + array[:sets_message] %>
+	    <br />
+	    <%= 'Total weight lifted: ' + array[:total_weight_message]  %>
+	    <br />
+	    <% end %>
+
+	  <% else %>
+	  	<h4> This is your first workout of this type.</h4>
+		<% end %>
+ 	</div>
+
   <%= link_to 'Repeat This Workout', new_workout_type_workout_path(@workout.workout_type_id), :class => 'btn btn-primary' %>
 	<br />
 	<br />

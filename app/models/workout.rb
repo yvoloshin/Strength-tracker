@@ -45,4 +45,12 @@ class Workout < ActiveRecord::Base
 	  end
 	end
 
+	def compare_with_previous(current_workout, previous_workout, exercise_id, exercise_name)
+		#current_workout_sets_for_exercise = CompletedSet.where({exercise_id: exercise_id})
+		current_workout_sets_for_exercise = CompletedSet.all
+		previous_workout_sets_for_exercise = Workout.joins(exercises: :completed_sets).where(exercises: {name: exercise_name}, id: previous_workout.id).count
+	return current_workout_sets_for_exercise.inspect + " <br /> " + exercise_name + ' ' + previous_workout_sets_for_exercise.inspect
+
+	end
+
 end
