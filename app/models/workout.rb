@@ -63,20 +63,34 @@ class Workout < ActiveRecord::Base
 				comparisons[exercise.name][:sets_message] = "#{difference_sets} fewer sets this time"				
 			end	
 
-			current_load = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: workout.id}).sum("load")
-			current_reps = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: workout.id}).sum("reps")
-			current_total_load = current_load * current_reps
-			previous_load = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: previous_workout.id}).sum("load")
-			previous_reps = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: previous_workout.id}).sum("reps")
-			previous_total_load = previous_load * previous_reps
+			current_load = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: workout.id}).select("load").order("exercises.created_at").to_a
+			current_reps = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: workout.id}).select("reps").order("exercises.created_at").to_a
+
+			current_total_load = 0
+
+			current_load.each_with_index do |item, index|
+				current_total_load += item['load'] * current_reps[index]['reps'] 
+			end
+
+			previous_load = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: previous_workout.id}).select("load").order("exercises.created_at").as_json
+			previous_reps = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: previous_workout.id}).select("reps").order("exercises.created_at").as_json
+			
+			previous_total_load = 0
+
+			previous_load.each_with_index do |item, index|
+				if item.key?('load') && previous_reps[index].key?('reps') && !item['load'].nil? && !previous_reps[index]['reps'].nil?
+					previous_total_load += item['load'] * previous_reps[index]['reps'] 
+				end
+			end
+
 			difference_total_load = current_total_load - previous_total_load
 
 			if difference_total_load == 0
-				comparisons[exercise.name][:total_weight_message] = 'No change in total amount of weight lifted'
+				comparisons[exercise.name][:total_weight_or_reps_message] = 'No change in total amount of weight lifted'
 			elsif difference_total_load > 0
-				comparisons[exercise.name][:total_weight_message] = "#{difference_total_load} more total pounds lifted this time!"
+				comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_load} more total pounds lifted this time!"
 			elsif difference_total_load < 0
-				comparisons[exercise.name][:total_weight_message] = "#{difference_total_load} fewer total pounds lifted this time"				
+				comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_load} fewer total pounds lifted this time"				
 			end
 
 		end

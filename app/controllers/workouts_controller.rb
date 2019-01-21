@@ -77,10 +77,8 @@ class WorkoutsController < ApplicationController
 		unless @previous_workout.nil?
 			@comparisons = @workout.compare_with_previous(@workout, @previous_workout)
 		end
-		
+
 	end
-
-
 
 	def destroy
 		@workout = Workout.find(params[:id])

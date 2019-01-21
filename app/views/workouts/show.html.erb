@@ -33,14 +33,16 @@
 	 			on <%= @previous_workout.created_at.strftime "%B %e, %Y" %>
 	 		</h3>
 	 		<br />
- 			<% @comparisons.each do |key, array| %>
-  
-			<%= key %>
-			<br />
-	    <%= 'Completed sets: ' + array[:sets_message] %>
-	    <br />
-	    <%= 'Total weight lifted: ' + array[:total_weight_message]  %>
-	    <br />
+
+	 		<% unless @comparisons.nil? %>
+	 			<% @comparisons.each do |key, array| %>
+					<%= key %>
+					<br />
+			    <%= 'Completed sets: ' + array[:sets_message] %>
+			    <br />
+			    <%= 'Total weight lifted: ' + array[:total_weight_or_reps_message]  %>
+			    <br />
+		    <% end %>
 	    <% end %>
 
 	  <% else %>
