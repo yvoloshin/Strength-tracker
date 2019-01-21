@@ -45,12 +45,43 @@ class Workout < ActiveRecord::Base
 	  end
 	end
 
-	def compare_with_previous(current_workout, previous_workout, exercise_id, exercise_name)
-		#current_workout_sets_for_exercise = CompletedSet.where({exercise_id: exercise_id})
-		current_workout_sets_for_exercise = CompletedSet.all
-		previous_workout_sets_for_exercise = Workout.joins(exercises: :completed_sets).where(exercises: {name: exercise_name}, id: previous_workout.id).count
-	return current_workout_sets_for_exercise.inspect + " <br /> " + exercise_name + ' ' + previous_workout_sets_for_exercise.inspect
+	def compare_with_previous(workout, previous_workout)
+		comparisons = Hash.new
 
+		workout.exercises.each do |exercise|
+			comparisons[exercise.name] = Hash.new
+
+			current_sets = Workout.joins(exercises: :completed_sets).where(exercises: {name: exercise.name}, id: workout.id).count
+			previous_sets = Workout.joins(exercises: :completed_sets).where(exercises: {name: exercise.name}, id: previous_workout.id).count
+			difference_sets = current_sets - previous_sets
+
+			if difference_sets == 0
+				comparisons[exercise.name][:sets_message] = 'No change in number of sets'
+			elsif difference_sets > 0
+				comparisons[exercise.name][:sets_message] = "#{difference_sets} more sets this time!"
+			elsif difference_sets < 0
+				comparisons[exercise.name][:sets_message] = "#{difference_sets} fewer sets this time"				
+			end	
+
+			current_load = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: workout.id}).sum("load")
+			current_reps = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: workout.id}).sum("reps")
+			current_total_load = current_load * current_reps
+			previous_load = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: previous_workout.id}).sum("load")
+			previous_reps = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: previous_workout.id}).sum("reps")
+			previous_total_load = previous_load * previous_reps
+			difference_total_load = current_total_load - previous_total_load
+
+			if difference_total_load == 0
+				comparisons[exercise.name][:total_weight_message] = 'No change in total amount of weight lifted'
+			elsif difference_total_load > 0
+				comparisons[exercise.name][:total_weight_message] = "#{difference_total_load} more total pounds lifted this time!"
+			elsif difference_total_load < 0
+				comparisons[exercise.name][:total_weight_message] = "#{difference_total_load} fewer total pounds lifted this time"				
+			end
+
+		end
+
+		return comparisons
 	end
 
 end
