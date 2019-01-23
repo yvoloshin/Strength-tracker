@@ -66,44 +66,33 @@ class Workout < ActiveRecord::Base
 				comparisons[exercise.name][:sets_message] = "#{difference_sets} fewer sets this time"				
 			end	
 
-			current_load = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: workout.id}).order("exercises.created_at").as_json
-			current_reps = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: workout.id}).order("exercises.created_at").as_json
+			# Determine whether this exercise is a body weight exercise 
+			check_zero_load_current_workout = get_sum_load(workout, exercise.name).nil? || get_sum_load(workout, exercise.name) == 0
+			check_zero_load_previous_workout = get_sum_load(previous_workout, exercise.name).nil? || get_sum_load(previous_workout, exercise.name) == 0
+			bodyweight = check_zero_load_current_workout && check_zero_load_previous_workout
 
-			current_total_load = 0
+			current_total_results = get_total_results(workout, exercise.name, bodyweight)
+			previous_total_results = get_total_results(previous_workout, exercise.name, bodyweight)
+			difference_total_results = current_total_results - previous_total_results
 
-			current_load.each_with_index do |item, index|
-				if item.key?('load') && current_reps[index].key?('reps') && !item['load'].nil? && !current_reps[index]['reps'].nil?
-					current_total_load += item['load'] * current_reps[index]['reps'] 
-				end 
-			end
-
-			previous_load = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: previous_workout.id}).select("load").order("exercises.created_at").as_json
-			previous_reps = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: previous_workout.id}).select("reps").order("exercises.created_at").as_json
-			previous_load_sum = CompletedSet.joins(:exercise).where(exercises: {name: exercise.name, workout_id: previous_workout.id}).select("load").order("exercises.created_at").sum("load")
-
-			body_weight = false
-			if current_load_sum == 0 && previous_load_sum ==0
-				body_weight = true
-			end
-
-			previous_total_load = 0
-
-			previous_load.each_with_index do |item, index|
-				if item.key?('load') && previous_reps[index].key?('reps') && !item['load'].nil? && !previous_reps[index]['reps'].nil?
-					previous_total_load += item['load'] * previous_reps[index]['reps'] 
+			if bodyweight
+				if difference_total_results == 0
+				comparisons[exercise.name][:total_weight_or_reps_message] = 'No change in total number of reps'
+				elsif difference_total_results > 0
+					comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_results} more reps this time!"
+				elsif difference_total_results < 0
+					comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_results} fewer reps this time"				
 				end
-			end
 
-			difference_total_load = current_total_load - previous_total_load
-
-			if difference_total_load == 0
+			else
+				if difference_total_results == 0
 				comparisons[exercise.name][:total_weight_or_reps_message] = 'No change in total amount of weight lifted'
-			elsif difference_total_load > 0
-				comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_load} more total pounds lifted this time!"
-			elsif difference_total_load < 0
-				comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_load} fewer total pounds lifted this time"				
-			end
-
+				elsif difference_total_results > 0
+					comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_results} more total pounds lifted this time!"
+				elsif difference_total_results < 0
+					comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_results} fewer total pounds lifted this time"				
+				end
+			end		
 		end
 
 		return comparisons
@@ -114,10 +103,34 @@ class Workout < ActiveRecord::Base
 		Workout.joins(exercises: :completed_sets).where(exercises: {name: exercise_name}, id: workout.id).count
 	end
 
-	# Returns the total weight lifted, or the total number of reps for a bodyweight exercise,
+	# Returns total weight lifted, or the total number of reps for a bodyweight exercise,
 	# for an exercise completed in a given workout
-	def get_total_sets_results(workout, exercise_name)
+	def get_total_results(workout, exercise_name, bodyweight)
+		sets_results = CompletedSet.joins(:exercise).where(exercises: {name: exercise_name, workout_id: workout.id}).order("exercises.created_at").as_json
 
+		total_results = 0
+
+		if bodyweight
+			sets_results.each do |item|
+				if item.key?('reps') && !item['reps'].nil?
+					total_results += item['reps'] 				
+				end 
+			end
+
+			return total_results
+		else
+			sets_results.each do |item|
+				if item.key?('load') && item.key?('reps') && !item['load'].nil? && !item['reps'].nil?
+					total_results += item['load'] * item['reps'] 			
+				end 
+			end
+
+			return total_results
+		end 
 	end
 
+	# Returns the sum of loads for all sets of an exercise
+	def get_sum_load(workout, exercise_name)
+		CompletedSet.joins(:exercise).where(exercises: {name: exercise_name, workout_id: workout.id}).order("exercises.created_at").sum("load")		
+	end
 end
