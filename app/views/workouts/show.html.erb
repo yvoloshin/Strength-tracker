@@ -37,12 +37,14 @@
 	 		<div class="pull-left">
 		 		<% unless @comparisons.nil? %>
 		 			<% @comparisons.each do |key, array| %>
+		 			<p>
 						<strong><%= key %></strong>
 						<br />
 				    <%= 'Completed sets: ' + array[:sets_message] %>
 				    <br />
-				    <%= 'Total weight lifted: ' + array[:total_weight_or_reps_message]  %>
+				    <%= 'Results: ' + array[:total_weight_or_reps_message]  %>
 				    <br />
+				  </p>
 			    <% end %>
 		    <% end %>
 		  <% else %>
