@@ -15,45 +15,46 @@
 			<% @workout.exercises.each do |exercise| %>
 				<% if exercise_name == exercise.name %>
 					<% exercise.completed_sets.each do |set| %>
-			      <tr>
-			        <td><%= set.reps %></td>
-			        <td><%= set.load %></td>
-			      </tr>
+						<% unless set.reps.nil? && set.load.nil? %>
+				      <tr>
+				        <td><%= set.reps %></td>
+				        <td><%= set.load %></td>
+				      </tr>
+			      <% end %>
 		      <% end %> 
 		    <% end %>
 	    <% end %>
-	    Total: @workout.get_total(exercise.name)
+	    <%= 'Total weight lifted: ' + @workout.get_total_results(@workout, exercise_name, false).to_s %>
+	    <br />
+	    <%= 'Total reps: ' + @workout.get_total_results(@workout, exercise_name, true).to_s %>	   	    
     </table>	
 	<% end %>
  
  	<br />
 
- 	<div class="pull-left">
+ 	<div class="comparison">
  		<% unless @previous_workout.nil? %>
 	 		<h4> Comparing with the last time you recorded <%= @workout.workout_type_name %>
 	 			on <%= @previous_workout.created_at.strftime "%B %e, %Y" %>
 	 		</h4>
 	 		<br />
-	 		<div class="pull-left">
-		 		<% unless @comparisons.nil? %>
-		 			<% @comparisons.each do |key, array| %>
+	 		<% unless @comparisons.nil? %>
+	 			<% @comparisons.each do |key, array| %>
 		 			<p>
 						<strong><%= key %></strong>
 						<br />
-				    <%= 'Completed sets: ' + array[:sets_message] %>
+				    <%= 'COMPLETED SETS: ' + array[:sets_message] %>
 				    <br />
-				    <%= 'Results: ' + array[:total_weight_or_reps_message]  %>
+				    <%= 'RESULTS: ' + array[:total_weight_or_reps_message]  %>
 				    <br />
 				  </p>
-			    <% end %>
-		    <% end %>
-		  <% else %>
-		  	<h4> This is your first workout of this type.</h4>
+		    <% end %>	  	
 			<% end %>
-		</div>
- 	</div>
+		<% else %>
+  		<h4> This is your first workout of this type.</h4>
+		<% end %>
+	</div>
 
-	<br />
  	<br class="clear" />
 
   <%= link_to 'Repeat This Workout', new_workout_type_workout_path(@workout.workout_type_id), :class => 'btn btn-primary' %>

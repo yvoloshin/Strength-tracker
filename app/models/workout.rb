@@ -81,7 +81,7 @@ class Workout < ActiveRecord::Base
 				elsif difference_total_results > 0
 					comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_results} more reps this time!"
 				elsif difference_total_results < 0
-					comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_results} fewer reps this time"				
+					comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_results.abs} fewer reps this time"				
 				end
 
 			else
@@ -90,7 +90,7 @@ class Workout < ActiveRecord::Base
 				elsif difference_total_results > 0
 					comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_results} more total pounds lifted this time!"
 				elsif difference_total_results < 0
-					comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_results} fewer total pounds lifted this time"				
+					comparisons[exercise.name][:total_weight_or_reps_message] = "#{difference_total_results.abs} fewer total pounds lifted this time"				
 				end
 			end		
 		end
