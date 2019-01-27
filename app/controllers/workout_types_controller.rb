@@ -15,7 +15,6 @@ class WorkoutTypesController < ApplicationController
 	end
 
 	def create
-		logger.debug(workout_type_params.inspect)
 		@workout_type = current_user.workout_types.create(workout_type_params)
 		@exercise_types = @workout_type.exercise_types
 		@exercise_types.each do |exercise_type|
