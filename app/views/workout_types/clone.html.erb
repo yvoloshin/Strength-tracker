@@ -1,0 +1,56 @@
+<script>
+  tinymce.init({
+    selector: '.mceEditor',
+    menubar: false,
+    branding: false,
+    plugins: "link autolink lists",
+    menubar: "insert",
+    toolbar: "undo redo | cut copy paste pastetext | styleselect | bold italic | link bullist numlist",
+  });
+</script>
+
+<div class="workout-box col-xs-10 col-xs-offset-1" id="new-workout-type">
+
+	<h1>Edit your Workout</h1>
+	<%= simple_form_for (@workout_type) do |f| %>
+		<%= f.input :type_name, label: 'What will you call this workout?' %>
+		<br />
+		<%= f.input :description, label: 'Add a brief description of this workout.', input_html: { class: 'mceEditor' } %>
+	  <br />
+	  <p>Who should be able to see this workout?</p>
+
+		<%= f.label :public, "All Users", :value => true %>
+    <%= f.radio_button :public, true, :checked => true %>
+    <%= f.label :public, "Myself Only", :value => false %>
+    <%= f.radio_button :public, false %>
+
+	 	<h3>You can make changes to existing exercises:</h3> 
+	  <br />
+		<table class="table table-bordered table-striped table-responsive">
+		  <thead>
+		    <tr>
+		      <th><%= "Exercise Name" %></th>
+		      <th><%= "Sets" %></th>
+		      <th><%= "Reps" %></th>
+		      <th><%= "Load (lb)" %></th>
+		      <th><%= "Link to Exercise Instructions" %></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
+		      <%= render 'exercise_fields_table', :f => builder, :id => "exercise-field" %>
+		    <% end %>
+		  </tbody>
+		</table>
+		<%= link_to 'Cancel', root_path, :class => 'btn btn-default' %>	
+		<%= f.submit 'Update', :class=>"btn btn-primary" %>
+	<% end %>
+	<br />
+
+	<div class="back-link col-xs-10 col-xs-offset-1">
+		<%= link_to workout_types_path do %>
+			<span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
+			Back to List of Routines &nbsp;
+		<% end %>
+	</div>
+</div>
