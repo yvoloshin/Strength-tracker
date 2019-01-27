@@ -72,8 +72,24 @@ class WorkoutTypesController < ApplicationController
 
 		WorkoutType.update(params[:id], :is_visible => false)
 
-		# @workout_type.update_column(@workout_type.is_visible, false)
     redirect_to root_path
+  end
+
+  def clone
+  	cloned_workout_type = WorkoutType.find(params[:id])
+  	@workout_type = cloned_workout_type.dup
+
+    cloned_workout_type.exercise_types.each do |exercise_type|
+      @workout_type.exercise_types << exercise_type.dup
+    end
+
+    exercise_types = @workout_type.exercise_types
+
+		exercise_types.each do |exercise_type|
+			if exercise_type.name.blank?
+				exercise_type.destroy
+			end
+		end
   end
 
 	def workout_type_params

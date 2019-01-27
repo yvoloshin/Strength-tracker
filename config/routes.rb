@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   get 'faq', :to => 'static_pages#faq'
   get 'workout_types/:id/remove', :to => 'workout_types#remove', as: :workout_type_remove
-
+  get 'workout_types/:id/clone', :to => 'workout_types#clone', as: :workout_type_clone
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
