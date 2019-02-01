@@ -25,16 +25,7 @@
 
 	 	<h3>You can make changes to existing exercises:</h3> 
 	  <br />
-		<table class="table table-bordered table-striped table-responsive">
-		  <thead>
-		    <tr>
-		      <th><%= "Exercise Name" %></th>
-		      <th><%= "Sets" %></th>
-		      <th><%= "Reps" %></th>
-		      <th><%= "Load (lb)" %></th>
-		      <th><%= "Link to Exercise Instructions" %></th>
-		    </tr>
-		  </thead>
+		<table class="table table-bordered table-striped table-responsive"> 
 		  <tbody>
 		    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
 		      <%= render 'exercise_fields_table', :f => builder, :id => "exercise-field" %>
