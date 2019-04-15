@@ -1,5 +1,6 @@
 class WorkoutTypesController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :create, :remove]
+	before_filter :prepare_units
 
 	def index
 		if params[:search]
@@ -98,6 +99,14 @@ class WorkoutTypesController < ApplicationController
 
 	def exercise_params
 		params.require(:exercise).permit(:name, :sets, :reps, :load)
+	end
+
+	# add the @weight_units = WeightUnit.All to the before action so avail for all actions
+
+	private
+
+	def prepare_units
+	  @weight_units = WeightUnit.all
 	end
 
 end

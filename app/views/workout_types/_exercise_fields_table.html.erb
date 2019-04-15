@@ -5,14 +5,17 @@
 	  </div>
 	</div>
 	<div class="row routine-row">
-		<div class="col-xs-4">
+		<div class="col-xs-3">
 	  	<%= f.input :sets, label: "Sets" %>
 		</div>
-	  <div class="col-xs-4">
+	  <div class="col-xs-3">
 	  	<%= f.input :reps, label: "Reps" %>
 		</div>
-	  <div class="col-xs-4">
+	  <div class="col-xs-3">
 	  	<%= f.input :load, label: "Load" %>
+	  </div>
+	  <div class="col-xs-3">
+	  	<%= f.collection_select :weight_unit_id, @weight_units, :id, :name, :selected => 'lb' %>
 	  </div>
 	</div>
 	<div class="row routine-row">
