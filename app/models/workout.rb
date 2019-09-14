@@ -121,7 +121,14 @@ class Workout < ActiveRecord::Base
 		else
 			sets_results.each do |item|
 				if item.key?('load') && item.key?('reps') && !item['load'].nil? && !item['reps'].nil?
-					total_results += item['load'] * item['reps'] 			
+					#abort item.inspect
+					if item.key?('weight_unit_id') && !item['weight_unit_id'].nil?
+						weight_unit = WeightUnit.find(item['weight_unit_id'])
+						conversion_factor_to_lb = weight_unit.conversion_factor_to_lb
+					else
+						conversion_factor_to_lb = 1
+					end		
+					total_results += item['load'] * item['reps'] * conversion_factor_to_lb 			
 				end 
 			end
 

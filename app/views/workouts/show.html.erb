@@ -24,7 +24,7 @@
 		      <% end %> 
 		    <% end %>
 	    <% end %>
-	    <%= 'Total weight lifted: ' + @workout.get_total_results(@workout, exercise_name, false).to_s %>
+	    <%= 'Total weight lifted: ' + @workout.get_total_results(@workout, exercise_name, false).to_s + '  lbs' %>
 	    <br />
 	    <%= 'Total reps: ' + @workout.get_total_results(@workout, exercise_name, true).to_s %>	   	    
     </table>	

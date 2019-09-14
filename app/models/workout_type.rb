@@ -1,5 +1,5 @@
 class WorkoutType < ActiveRecord::Base
-	attr_accessor :exercise_type_attributes, :workout_type_id
+	attr_accessor :exercise_type_attributes, :workout_type_id, :weight_unit_id
 	has_many :exercise_types, dependent: :destroy
 	has_many :workouts
 	belongs_to :user

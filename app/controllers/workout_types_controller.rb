@@ -101,8 +101,7 @@ class WorkoutTypesController < ApplicationController
 		params.require(:exercise).permit(:name, :sets, :reps, :load)
 	end
 
-	# add the @weight_units = WeightUnit.All to the before action so avail for all actions
-
+	# add the @weight_units = WeightUnit.All to the before action to make it available for all actions
 	private
 
 	def prepare_units

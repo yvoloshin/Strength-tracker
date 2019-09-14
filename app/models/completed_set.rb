@@ -1,4 +1,6 @@
 class CompletedSet < ActiveRecord::Base
 	belongs_to :exercise
-	has_one :weight_unit
+	belongs_to :weight_unit
+
+	accepts_nested_attributes_for :weight_unit
 end
