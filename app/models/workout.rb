@@ -71,6 +71,7 @@ class Workout < ActiveRecord::Base
 			check_zero_load_previous_workout = get_sum_load(previous_workout, exercise.name).nil? || get_sum_load(previous_workout, exercise.name) == 0
 			bodyweight = check_zero_load_current_workout && check_zero_load_previous_workout
 
+			# all results in lb
 			current_total_results = get_total_results(workout, exercise.name, bodyweight)
 			previous_total_results = get_total_results(previous_workout, exercise.name, bodyweight)
 			difference_total_results = current_total_results - previous_total_results
@@ -131,7 +132,7 @@ class Workout < ActiveRecord::Base
 					total_results += item['load'] * item['reps'] * conversion_factor_to_lb 			
 				end 
 			end
-
+			# return results in lb
 			return total_results
 		end 
 	end

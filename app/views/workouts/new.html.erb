@@ -31,6 +31,10 @@
 		<% end %>
 	<% end %>
 
+	<%= exercise_type_sets.inspect %>
+	<%= @workout_type.exercise_types.inspect %>
+	<%= @weight_units.find(@workout_type.exercise_types[0].weight_unit_id).name %>
+
 	<% circuit_number = 0 %>
 	<%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>
 	
@@ -54,7 +58,7 @@
 								  		<%= builder.simple_fields_for :completed_sets, @exercises[exercise_number].completed_sets[circuit_number] do |set| %>
 								        <td><%= set.input :reps, placeholder: 'Reps', label: false %></td>
 								        <td><%= set.input :load, placeholder: 'Load', label: false %></td>
-								        <td><%= set.collection_select :weight_unit_id, @weight_units, :id, :name, :selected => 'lb' %></td>
+								        <td><%= set.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => 2}, {:class => 'form-control'} %></td>
 							        <% end %>
 				      			</tr>	      
 								  </tbody>
