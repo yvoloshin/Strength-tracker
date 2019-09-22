@@ -141,4 +141,7 @@ class Workout < ActiveRecord::Base
 	def get_sum_load(workout, exercise_name)
 		CompletedSet.joins(:exercise).where(exercises: {name: exercise_name, workout_id: workout.id}).order("exercises.created_at").sum("load")		
 	end
+
+	
+
 end

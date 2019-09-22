@@ -15,4 +15,9 @@ class WorkoutType < ActiveRecord::Base
     where("LOWER(type_name) like ?", "%#{query}%")
   end
 
+  # Returns id of the weight unit of exercise with given name belonging to given workout_type
+  def get_weight_unit_for_exercise(workout_type, exercise_name)
+    return ExerciseType.find_by(name: exercise_name, workout_type_id: workout_type.id).weight_unit.id.to_int
+  end
+
 end

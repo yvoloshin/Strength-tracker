@@ -12,7 +12,7 @@
 				<span>Load: </span>
 				<span class="new-workout-numbers"><%= exercise_type.load %> </span>
 				<span class="new-workout-numbers">
-					<%= @weight_units.find(exercise_type.weight_unit_id).name %>
+					<%= exercise_type.weight_unit.name %>
 				</span>
 			<% end %>
 		</p>
@@ -30,10 +30,6 @@
 		  <% exercise_type_sets.push(exercise_type.sets).reject! { |item| item.nil? || item == '' } %>
 		<% end %>
 	<% end %>
-
-	<%= exercise_type_sets.inspect %>
-	<%= @workout_type.exercise_types.inspect %>
-	<%= @weight_units.find(@workout_type.exercise_types[0].weight_unit_id).name %>
 
 	<% circuit_number = 0 %>
 	<%= simple_form_for @workout, :url => workout_type_workouts_path(:workout_type_id => @workout_type.id), :method => :post do |f| %>
@@ -58,7 +54,7 @@
 								  		<%= builder.simple_fields_for :completed_sets, @exercises[exercise_number].completed_sets[circuit_number] do |set| %>
 								        <td><%= set.input :reps, placeholder: 'Reps', label: false %></td>
 								        <td><%= set.input :load, placeholder: 'Load', label: false %></td>
-								        <td><%= set.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => 2}, {:class => 'form-control'} %></td>
+								        <td><%= set.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => ExerciseType.find_by(name: builder.object.name, workout_type_id: @workout_type.id).weight_unit.id }, {:class => 'form-control'} %></td>
 							        <% end %>
 				      			</tr>	      
 								  </tbody>

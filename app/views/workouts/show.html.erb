@@ -9,7 +9,8 @@
 		  <thead>
 		    <tr>
 		      <th><%= "Reps" %></th>
-		      <th><%= "Load (lb)" %></th>
+		      <th><%= "Load" %></th>
+		      <th><%= "Units" %></th>
 		    </tr>
 		  </thead>
 			<% @workout.exercises.each do |exercise| %>
@@ -19,6 +20,7 @@
 				      <tr>
 				        <td><%= set.reps %></td>
 				        <td><%= set.load %></td>
+				        <td><%= set.weight_unit.name %></td>
 				      </tr>
 			      <% end %>
 		      <% end %> 
