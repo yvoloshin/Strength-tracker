@@ -3,8 +3,8 @@
   <td><%= f.input :sets, label: false %></td>
   <td><%= f.input :reps, label: false %></td>
   <td><%= f.input :load, label: false %></td>
-  <td>
-  	<%= f.collection_select :weight_unit_id, @weight_units, :id, :name, :selected => 'lb' %>
+	<td>
+		<%= f.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => 1 }, {:class => 'form-control'} %>
 	</td>
   <td><%= f.input :url, label: false %></td>
 </tr>

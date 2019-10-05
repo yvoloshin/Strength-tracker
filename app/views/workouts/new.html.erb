@@ -54,7 +54,9 @@
 								  		<%= builder.simple_fields_for :completed_sets, @exercises[exercise_number].completed_sets[circuit_number] do |set| %>
 								        <td><%= set.input :reps, placeholder: 'Reps', label: false %></td>
 								        <td><%= set.input :load, placeholder: 'Load', label: false %></td>
-								        <td><%= set.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => ExerciseType.find_by(name: builder.object.name, workout_type_id: @workout_type.id).weight_unit.id }, {:class => 'form-control'} %></td>
+								        <td>
+								        	<%= set.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => ExerciseType.find_by(name: builder.object.name, workout_type_id: @workout_type.id).weight_unit.id }, {:class => 'form-control'} %>
+								        </td>
 							        <% end %>
 				      			</tr>	      
 								  </tbody>
