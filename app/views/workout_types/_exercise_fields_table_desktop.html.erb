@@ -4,10 +4,7 @@
   <td><%= exercisetype_form.input :reps, label: false %></td>
   <td><%= exercisetype_form.input :load, label: false %></td>
 	<td>
-		<%= exercisetype_form.simple_fields_for :weight_unit, @weight_unit do |unit| %>
-		<%= unit.collection_select :weight_unit, @weight_units, :id, :name, {:selected => 1 }, {:class => 'form-control'} %>
-		<% end %>
-		
+	  	<%= exercisetype_form.collection_select :weight_unit_id, @weight_units, :id, :name, { }, {:class => 'form-control'} %>
 	</td>
   <td><%= exercisetype_form.input :url, label: false %></td>
 </tr>
