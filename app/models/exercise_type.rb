@@ -3,4 +3,5 @@ class ExerciseType < ActiveRecord::Base
 	belongs_to :workout_type
 	has_many :exercises
 	belongs_to :weight_unit
+	accepts_nested_attributes_for :weight_unit
 end

@@ -1,10 +1,13 @@
 <tr>
-  <td><%= f.input :name, label: false %></td>
-  <td><%= f.input :sets, label: false %></td>
-  <td><%= f.input :reps, label: false %></td>
-  <td><%= f.input :load, label: false %></td>
+  <td><%= exercisetype_form.input :name, label: false %></td>
+  <td><%= exercisetype_form.input :sets, label: false %></td>
+  <td><%= exercisetype_form.input :reps, label: false %></td>
+  <td><%= exercisetype_form.input :load, label: false %></td>
 	<td>
-		<%= f.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => 1 }, {:class => 'form-control'} %>
+		<%= exercisetype_form.simple_fields_for :weight_unit, @weight_unit do |unit| %>
+		<%= unit.collection_select :weight_unit, @weight_units, :id, :name, {:selected => 1 }, {:class => 'form-control'} %>
+		<% end %>
+		
 	</td>
-  <td><%= f.input :url, label: false %></td>
+  <td><%= exercisetype_form.input :url, label: false %></td>
 </tr>

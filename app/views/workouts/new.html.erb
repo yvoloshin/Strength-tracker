@@ -12,7 +12,9 @@
 				<span>Load: </span>
 				<span class="new-workout-numbers"><%= exercise_type.load %> </span>
 				<span class="new-workout-numbers">
-					<%= exercise_type.weight_unit.name %>
+					<% if exercise_type.weight_unit.present? %>
+						<%= exercise_type.weight_unit.name %>
+					<% end %>
 				</span>
 			<% end %>
 		</p>
@@ -55,7 +57,11 @@
 								        <td><%= set.input :reps, placeholder: 'Reps', label: false %></td>
 								        <td><%= set.input :load, placeholder: 'Load', label: false %></td>
 								        <td>
-								        	<%= set.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => ExerciseType.find_by(name: builder.object.name, workout_type_id: @workout_type.id).weight_unit.id }, {:class => 'form-control'} %>
+								        	<% if ExerciseType.find_by(name: builder.object.name, workout_type_id: @workout_type.id).weight_unit.present? %>
+								        		<%= set.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => ExerciseType.find_by(name: builder.object.name, workout_type_id: @workout_type.id).weight_unit.id }, {:class => 'form-control'} %>
+								        	<% else %>
+								        		<%= set.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => 1 }, {:class => 'form-control'} %>
+								        	<% end %>
 								        </td>
 							        <% end %>
 				      			</tr>	      
@@ -63,7 +69,6 @@
 								</table>
 							<% end %>
 						<% end %>
-
 					<% end %>
 					<% exercise_number += 1 %>
 				<% end %> <!-- end exercise -->
@@ -78,6 +83,7 @@
 		<%= f.submit 'Save', :class=>"btn btn-primary", :id=>"workout_submit" %>
 
 	<% end %> <!-- end form -->
+</div>
 
 
 	

@@ -26,14 +26,34 @@
 	 	<h3>You can make changes to existing exercises:</h3> 
 	  <br />
 		<table class="table table-bordered table-striped table-responsive"> 
-		  <tbody>
+	  	<div class="mobile">
 		    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
 		      <%= render 'exercise_fields_table', :f => builder, :id => "exercise-field" %>
 		    <% end %>
-		  </tbody>
+	    </div>
+	    <div class="desktop">
+		  	<table class="table table-bordered table-striped table-responsive">
+				  <thead>
+				    <tr>
+				      <th>Exercise Name</th>
+				      <th>Sets<br /><small><i>(1 set if left blank)</i></small></th>
+				      <th>Reps</th>
+				      <th>Load <br /><small><i>(leave blank if bodyweight)</i></small></th>
+				      <th>Units</th>
+				      <th>Link to Instructions</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
+				      <%= render 'exercise_fields_table_desktop', :f => builder, :id => "exercise-field" %>	
+				    <% end %>
+				  </tbody>
+				</table>
+	  	</div>
 		</table>
-		<%= link_to 'Cancel', workout_type_path(@workout_type), :class => 'btn btn-default' %>	
+			
 		<%= f.submit 'Update', :class=>"btn btn-primary" %>
+		<%= link_to 'Cancel', workout_type_path(@workout_type), :class => 'btn btn-default' %>
 	<% end %>
 	<br />
 
@@ -44,3 +64,5 @@
 		<% end %>
 	</div>
 </div>
+
+<div id="desktopTest" class="hidden-sm hidden-xs"></div>

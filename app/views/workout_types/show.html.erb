@@ -26,6 +26,7 @@
 		        <td><%= exercise_type.reps %></td>
 		        <td><%= exercise_type.load %></td>
 		        <td>
+		        	<%= exercise_type.inspect %>
 		        	<% if exercise_type.weight_unit_id.present? %>
 		        		<%= @weight_units.find(exercise_type.weight_unit_id).name %>
 		        	<% end %>

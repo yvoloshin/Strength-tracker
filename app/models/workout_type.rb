@@ -4,7 +4,9 @@ class WorkoutType < ActiveRecord::Base
 	has_many :workouts
 	belongs_to :user
 
-	accepts_nested_attributes_for :exercise_types
+#	accepts_nested_attributes_for :exercise_types, reject_if: lambda { |attributes| attributes['name'].blank? }
+accepts_nested_attributes_for :exercise_types
+
 
 	# Implements search for workout types.
   # * *Args*    :
