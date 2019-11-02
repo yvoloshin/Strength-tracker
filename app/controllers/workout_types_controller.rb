@@ -11,30 +11,23 @@ class WorkoutTypesController < ApplicationController
 	end
 
 	def new
-		# abort @weight_units.inspect
 		@workout_type = WorkoutType.new
 		@exercise_types = Array.new(10) { @workout_type.exercise_types.build }
-	#	abort @exercise_types.inspect
-
-		@weight_unit = WeightUnit.new
-		@weight_unit.exercise_types.build
-
-		# @weight_unit = WeightUnit.find(1)
-		# @weight_unit.exercise_types.build(weight_unit_id: 1)
-
-
-=begin
 		@exercise_types.each do |exercise_type|
-			@weight_unit = WeightUnit.find(1)
-			@weight_unit.exercise_types.build(weight_unit_id: 1)
+			exercise_type.weight_unit_id = 1
 		end
-		# abort @exercise_types.inspect
-=end
 	end
 
 	def create
-		@workout_type = WorkoutType.new(workout_type_params.merge(:user => current_user))
+		@workout_type = WorkoutType.create(workout_type_params.merge(:user => current_user))
+		@exercise_types = @workout_type.exercise_types
 		
+		@exercise_types.each_with_index do |exercise_type, index|
+			index = index.to_s
+			unit = WeightUnit.find(params[:workout_type][:exercise_types_attributes][index][:weight_unit_id])
+			exercise_type.update(weight_unit: unit)
+		end
+
 		if @workout_type.save
 			redirect_to root_path
 		else
@@ -105,7 +98,7 @@ class WorkoutTypesController < ApplicationController
   end
 
 	def workout_type_params
-		params.require(:workout_type).permit(:type_name, :public, :description, :exercise_types_attributes => [:id, :name, :sets, :reps, :load, :url, :weight_unit_attributes => [:id, :name, :conversion_factor_to_lb]])
+		params.require(:workout_type).permit(:type_name, :public, :description, :exercise_types_attributes => [:id, :name, :sets, :reps, :load, :url, :weight_unit_id])
 	end
 
 	# add the @weight_units = WeightUnit.All to the before action to make it available for all actions

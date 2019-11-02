@@ -16,9 +16,9 @@
 	  </div>
 	  <div class="col-xs-3">
 	  	<%= exercisetype_form.label 'Units' %>
-	  	<%= exercisetype_form.simple_fields_for :weight_unit, @weight_unit do |unit| %>
-				<%= unit.collection_select :id, @weight_units, :id, :name, {}, {:class => 'form-control'} %>
-			<% end %>
+	  	
+	  	<%= exercisetype_form.collection_select :weight_unit_id, @weight_units, :id, :name, { }, {:class => 'form-control'} %>
+
 	  </div>
 	</div>
 	<div class="row routine-row">
