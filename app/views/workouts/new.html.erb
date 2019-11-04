@@ -5,9 +5,17 @@
 		<p>
 			<% if exercise_type.name.present? %>
 				<h3><%= exercise_type.name %></h3>
-				<span>Sets: </span><span class="new-workout-numbers"><%= exercise_type.sets %></span>
-				<span>Reps: </span><span class="new-workout-numbers"><%= exercise_type.reps %></span>
-				<span>Load: </span><span class="new-workout-numbers"><%= exercise_type.load %></span>
+				<span>Sets: </span>
+				<span class="new-workout-numbers"><%= exercise_type.sets %></span>
+				<span>Reps: </span>
+				<span class="new-workout-numbers"><%= exercise_type.reps %></span>
+				<span>Load: </span>
+				<span class="new-workout-numbers"><%= exercise_type.load %> </span>
+				<span class="new-workout-numbers">
+					<% if exercise_type.weight_unit.present? %>
+						<%= exercise_type.weight_unit.name %>
+					<% end %>
+				</span>
 			<% end %>
 		</p>
 	<% end %>
@@ -16,11 +24,12 @@
 	<br />
 
 	<% exercise_type_sets = Array.new %>
+
 	<% @workout_type.exercise_types.each do |exercise_type| %>
 		<% if exercise_type.sets.nil? %>
 			<% exercise_type_sets.push(1) %>
 		<% else %>
-		<% exercise_type_sets.push(exercise_type.sets).reject! { |item| item.nil? || item == '' } %>
+		  <% exercise_type_sets.push(exercise_type.sets).reject! { |item| item.nil? || item == '' } %>
 		<% end %>
 	<% end %>
 
@@ -47,13 +56,19 @@
 								  		<%= builder.simple_fields_for :completed_sets, @exercises[exercise_number].completed_sets[circuit_number] do |set| %>
 								        <td><%= set.input :reps, placeholder: 'Reps', label: false %></td>
 								        <td><%= set.input :load, placeholder: 'Load', label: false %></td>
+								        <td>
+								        	<% if ExerciseType.find_by(name: builder.object.name, workout_type_id: @workout_type.id).weight_unit.present? %>
+								        		<%= set.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => ExerciseType.find_by(name: builder.object.name, workout_type_id: @workout_type.id).weight_unit.id }, {:class => 'form-control'} %>
+								        	<% else %>
+								        		<%= set.collection_select :weight_unit_id, @weight_units, :id, :name, {:selected => 1 }, {:class => 'form-control'} %>
+								        	<% end %>
+								        </td>
 							        <% end %>
 				      			</tr>	      
 								  </tbody>
 								</table>
 							<% end %>
 						<% end %>
-
 					<% end %>
 					<% exercise_number += 1 %>
 				<% end %> <!-- end exercise -->
@@ -68,6 +83,7 @@
 		<%= f.submit 'Save', :class=>"btn btn-primary", :id=>"workout_submit" %>
 
 	<% end %> <!-- end form -->
+</div>
 
 
 	

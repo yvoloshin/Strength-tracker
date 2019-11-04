@@ -1,5 +1,6 @@
 class WorkoutsController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :create]
+	before_filter :prepare_units
 
 	def index
 		@workouts = current_user.workouts.all.order(created_at: :desc)
@@ -23,7 +24,7 @@ class WorkoutsController < ApplicationController
 		@exercises = Array.new(number_of_exercises) { @workout.exercises.build }
 		
 		i = 0
-    while i<number_of_exercises do
+    while i < number_of_exercises do
 			@exercises[i].name = @exercise_type_names_arr[i]
 			@exercises[i].exercise_type_id = @exercise_type_ids_arr[i]
 			i += 1
@@ -102,7 +103,11 @@ class WorkoutsController < ApplicationController
 	end
 
 	def workout_params
-		params.require(:workout).permit(:type, :exercises_attributes => [:name, :completed_sets_attributes => [:reps, :load]])
+		params.require(:workout).permit(:type, :exercises_attributes => [:name, :completed_sets_attributes => [:reps, :load, :weight_unit_id]]) #:weight_units_attributes => [:name, :conversion_factor_to_lb]]])
+	end
+
+	def prepare_units
+	  @weight_units = WeightUnit.all
 	end
 
 end

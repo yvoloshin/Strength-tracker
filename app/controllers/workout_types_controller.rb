@@ -1,5 +1,6 @@
 class WorkoutTypesController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :create, :remove]
+	before_filter :prepare_units
 
 	def index
 		if params[:search]
@@ -12,18 +13,22 @@ class WorkoutTypesController < ApplicationController
 	def new
 		@workout_type = WorkoutType.new
 		@exercise_types = Array.new(10) { @workout_type.exercise_types.build }
+		@exercise_types.each do |exercise_type|
+			exercise_type.weight_unit_id = 1
+		end
 	end
 
 	def create
-		@workout_type = current_user.workout_types.create(workout_type_params)
+		@workout_type = WorkoutType.create(workout_type_params.merge(:user => current_user))
 		@exercise_types = @workout_type.exercise_types
-		@exercise_types.each do |exercise_type|
-			if exercise_type.name.blank?
-				exercise_type.destroy
-			end
+		
+		@exercise_types.each_with_index do |exercise_type, index|
+			index = index.to_s
+			unit = WeightUnit.find(params[:workout_type][:exercise_types_attributes][index][:weight_unit_id])
+			exercise_type.update(weight_unit: unit)
 		end
 
-		if @workout_type.valid?
+		if @workout_type.save
 			redirect_to root_path
 		else
 			render :new, :status => :unprocessable_entity
@@ -93,11 +98,14 @@ class WorkoutTypesController < ApplicationController
   end
 
 	def workout_type_params
-		params.require(:workout_type).permit(:type_name, :public, :description, exercise_types_attributes: [:id, :name, :sets, :reps, :load, :url])
+		params.require(:workout_type).permit(:type_name, :public, :description, :exercise_types_attributes => [:id, :name, :sets, :reps, :load, :url, :weight_unit_id])
 	end
 
-	def exercise_params
-		params.require(:exercise).permit(:name, :sets, :reps, :load)
+	# add the @weight_units = WeightUnit.All to the before action to make it available for all actions
+	private
+
+	def prepare_units
+	  @weight_units = WeightUnit.all
 	end
 
 end

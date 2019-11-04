@@ -1,7 +1,10 @@
 <tr>
-  <td><%= f.input :name, label: false %></td>
-  <td><%= f.input :sets, label: false %></td>
-  <td><%= f.input :reps, label: false %></td>
-  <td><%= f.input :load, label: false %></td>
-  <td><%= f.input :url, label: false %></td>
+  <td><%= exercisetype_form.input :name, label: false %></td>
+  <td><%= exercisetype_form.input :sets, label: false %></td>
+  <td><%= exercisetype_form.input :reps, label: false %></td>
+  <td><%= exercisetype_form.input :load, label: false %></td>
+	<td>
+	  	<%= exercisetype_form.collection_select :weight_unit_id, @weight_units, :id, :name, { }, {:class => 'form-control'} %>
+	</td>
+  <td><%= exercisetype_form.input :url, label: false %></td>
 </tr>

@@ -26,22 +26,34 @@
 
 	 	<h3>You can make changes to existing exercises:</h3> 
 	  <br />
-		<table class="table table-bordered table-striped table-responsive">
-		  <thead>
-		    <tr>
-		      <th><%= "Exercise Name" %></th>
-		      <th><%= "Sets" %></th>
-		      <th><%= "Reps" %></th>
-		      <th><%= "Load (lb)" %></th>
-		      <th><%= "Link to Exercise Instructions" %></th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <%= f.fields_for :exercise_types, @exercise_types do |builder| %>
-		      <%= render 'exercise_fields_table', :f => builder, :id => "exercise-field" %>
-		    <% end %>
-		  </tbody>
-		</table>
+		
+		<div class="mobile">
+	    <%= f.simple_fields_for :exercise_types, @exercise_types do |builder| %>
+
+	      <%= render 'exercise_fields_table', :exercisetype_form => builder %>
+	    <% end %>
+	  </div>
+
+	  <div class="desktop">
+	  	<table class="table table-bordered table-striped table-responsive">
+			  <thead>
+			    <tr>
+			      <th>Exercise Name</th>
+			      <th>Sets<br /><small><i>(1 set if left blank)</i></small></th>
+			      <th>Reps</th>
+			      <th>Load <br /><small><i>(leave blank if bodyweight)</i></small></th>
+			      <th>Units</th>
+			      <th>Link to Instructions</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <%= f.simple_fields_for :exercise_types, @exercise_types do |builder| %>
+			      <%= render 'exercise_fields_table_desktop', :exercisetype_form => builder %>	
+			    <% end %>
+			  </tbody>
+			</table>
+	  </div>
+
 		<%= link_to 'Cancel', root_path, :class => 'btn btn-default' %>	
 		<%= f.submit 'Update', :class=>"btn btn-primary" %>
 	<% end %>

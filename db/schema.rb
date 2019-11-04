@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531033338) do
+ActiveRecord::Schema.define(version: 20190225024228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,10 @@ ActiveRecord::Schema.define(version: 20170531033338) do
   create_table "completed_sets", force: :cascade do |t|
     t.integer  "reps"
     t.integer  "exercise_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "load"
+    t.integer  "weight_unit_id"
   end
 
   create_table "exercise_types", force: :cascade do |t|
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170531033338) do
     t.datetime "updated_at",      null: false
     t.string   "load"
     t.string   "url"
+    t.integer  "weight_unit_id"
   end
 
   add_index "exercise_types", ["workout_type_id"], name: "index_exercise_types_on_workout_type_id", using: :btree
@@ -66,6 +68,11 @@ ActiveRecord::Schema.define(version: 20170531033338) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
+
+  create_table "weight_units", force: :cascade do |t|
+    t.string  "name"
+    t.decimal "conversion_factor_to_lb", precision: 10, scale: 4
+  end
 
   create_table "workout_types", force: :cascade do |t|
     t.string   "type_name"

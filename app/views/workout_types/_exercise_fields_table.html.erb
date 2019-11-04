@@ -1,23 +1,29 @@
 <div class="workout-box random-color-box">
 	<div class="row routine-row">
 		<div class="col-xs-12">
-	  	<%= f.input :name, label: "Exercise Name" %>
+	  	<%= exercisetype_form.input :name, label: "Exercise Name" %>
 	  </div>
 	</div>
 	<div class="row routine-row">
-		<div class="col-xs-4">
-	  	<%= f.input :sets, label: "Sets" %>
+		<div class="col-xs-3">
+	  	<%= exercisetype_form.input :sets, label: "Sets" %>
 		</div>
-	  <div class="col-xs-4">
-	  	<%= f.input :reps, label: "Reps" %>
+	  <div class="col-xs-3">
+	  	<%= exercisetype_form.input :reps, label: "Reps" %>
 		</div>
-	  <div class="col-xs-4">
-	  	<%= f.input :load, label: "Load" %>
+	  <div class="col-xs-3">
+	  	<%= exercisetype_form.input :load, label: "Load" %>
+	  </div>
+	  <div class="col-xs-3">
+	  	<%= exercisetype_form.label 'Units' %>
+	  	
+	  	<%= exercisetype_form.collection_select :weight_unit_id, @weight_units, :id, :name, { }, {:class => 'form-control'} %>
+
 	  </div>
 	</div>
 	<div class="row routine-row">
 		<div class="col-xs-12">
-	  	<%= f.input :url, label: "Link to instructions" %>
+	  	<%= exercisetype_form.input :url, label: "Link to instructions" %>
 	  </div>
 	</div>
 </div>

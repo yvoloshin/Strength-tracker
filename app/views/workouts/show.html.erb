@@ -9,7 +9,8 @@
 		  <thead>
 		    <tr>
 		      <th><%= "Reps" %></th>
-		      <th><%= "Load (lb)" %></th>
+		      <th><%= "Load" %></th>
+		      <th><%= "Units" %></th>
 		    </tr>
 		  </thead>
 			<% @workout.exercises.each do |exercise| %>
@@ -19,12 +20,13 @@
 				      <tr>
 				        <td><%= set.reps %></td>
 				        <td><%= set.load %></td>
+				        <td><%= set.weight_unit.name %></td>
 				      </tr>
 			      <% end %>
 		      <% end %> 
 		    <% end %>
 	    <% end %>
-	    <%= 'Total weight lifted: ' + @workout.get_total_results(@workout, exercise_name, false).to_s %>
+	    <%= 'Total weight lifted: ' + @workout.get_total_results(@workout, exercise_name, false).to_s + '  lbs' %>
 	    <br />
 	    <%= 'Total reps: ' + @workout.get_total_results(@workout, exercise_name, true).to_s %>	   	    
     </table>	

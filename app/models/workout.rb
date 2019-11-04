@@ -71,6 +71,7 @@ class Workout < ActiveRecord::Base
 			check_zero_load_previous_workout = get_sum_load(previous_workout, exercise.name).nil? || get_sum_load(previous_workout, exercise.name) == 0
 			bodyweight = check_zero_load_current_workout && check_zero_load_previous_workout
 
+			# all results in lb
 			current_total_results = get_total_results(workout, exercise.name, bodyweight)
 			previous_total_results = get_total_results(previous_workout, exercise.name, bodyweight)
 			difference_total_results = current_total_results - previous_total_results
@@ -121,10 +122,17 @@ class Workout < ActiveRecord::Base
 		else
 			sets_results.each do |item|
 				if item.key?('load') && item.key?('reps') && !item['load'].nil? && !item['reps'].nil?
-					total_results += item['load'] * item['reps'] 			
+					#abort item.inspect
+					if item.key?('weight_unit_id') && !item['weight_unit_id'].nil?
+						weight_unit = WeightUnit.find(item['weight_unit_id'])
+						conversion_factor_to_lb = weight_unit.conversion_factor_to_lb
+					else
+						conversion_factor_to_lb = 1
+					end		
+					total_results += item['load'] * item['reps'] * conversion_factor_to_lb 			
 				end 
 			end
-
+			# return results in lb
 			return total_results
 		end 
 	end
@@ -133,4 +141,7 @@ class Workout < ActiveRecord::Base
 	def get_sum_load(workout, exercise_name)
 		CompletedSet.joins(:exercise).where(exercises: {name: exercise_name, workout_id: workout.id}).order("exercises.created_at").sum("load")		
 	end
+
+	
+
 end

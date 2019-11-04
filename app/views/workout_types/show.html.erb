@@ -9,7 +9,8 @@
 	      <th><%= "Exercise" %></th>
 	      <th><%= "Sets" %></th>
 	      <th><%= "Reps" %></th>
-	      <th><%= "Load, lb or kg" %></th>
+	      <th><%= "Load" %></th>
+	      <th><%= "Units" %></th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -24,6 +25,11 @@
 		        <td><%= exercise_type.sets %></td>
 		        <td><%= exercise_type.reps %></td>
 		        <td><%= exercise_type.load %></td>
+		        <td>
+		        	<% if exercise_type.weight_unit.present? %>
+		        		<%= @weight_units.find(exercise_type.weight_unit.id).name %>
+		        	<% end %>
+		        </td>
 		      </tr>
 		    <% end %>
 	    <% end %>
