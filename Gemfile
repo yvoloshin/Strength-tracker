@@ -24,7 +24,7 @@ gem 'bootstrap-sass', '~> 3.3.5.1'
 gem 'sprockets', '~> 2.12.5'
 # Use SCSS for stylesheets
 gem 'sass-rails'
-gem 'simple_form'
+gem "simple_form", ">= 5.0.0"
 # gem 'devise', '>= 3.2.4', github: 'plataformatec/devise', branch: 'rails4'
 gem 'devise', :git => 'git://github.com/plataformatec/devise.git'
 gem "figaro"
