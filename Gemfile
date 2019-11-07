@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
+ruby '2.3.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
+gem 'bundler', '1.17.3'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 # Use Uglifier as compressor for JavaScript assets
@@ -21,7 +24,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bootstrap-sass', '~> 3.4.1'
-gem 'sprockets', '~> 2.12.5'
+gem 'sassc', '2.1.0'
+gem 'sprockets', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 gem 'simple_form'
