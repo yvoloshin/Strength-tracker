@@ -1,7 +1,7 @@
 $( document ).on('turbolinks:load', function() {
 	if ($('#desktopTest').is(':hidden')) {
-	    	$('.desktop').attr("hidden", true);
+	    	$('.desktop').remove();
 		} else {
-				$('.mobile').attr("hidden", true);
+				$('.mobile').remove();
 		}
 })
