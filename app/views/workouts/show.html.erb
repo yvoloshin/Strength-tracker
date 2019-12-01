@@ -20,7 +20,11 @@
 				      <tr>
 				        <td><%= set.reps %></td>
 				        <td><%= set.load %></td>
-				        <td><%= set.weight_unit.name %></td>
+				        <% if !set.weight_unit.nil? %>
+				        	<td><%= set.weight_unit.name %></td>
+				        <% else %>
+				        	<td></td>
+				        <% end %>
 				      </tr>
 			      <% end %>
 		      <% end %> 
