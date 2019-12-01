@@ -9,8 +9,6 @@
   });
 </script>
 
-<div id="desktopTest" class="hidden-sm hidden-xs"></div>
-
 <div class="workout-box col-xs-10 col-xs-offset-1" id="new-workout-type">
 
 	<%= simple_form_for (@workout_type) do |f| %>
@@ -26,32 +24,13 @@
     <%= f.label :public, "Myself Only", :value => false %>
     <%= f.radio_button :public, false %>
 
-	 	<h3>Now enter up to 10 exercises:</h3> 
-	 	<div class="mobile">
+	 	<h3>Now enter up to 10 exercises:</h3>
+
+		<div>
 	    <%= f.simple_fields_for :exercise_types, @exercise_types do |builder| %>
 
 	      <%= render 'exercise_fields_table', :exercisetype_form => builder %>
 	    <% end %>
-	  </div>
-
-	  <div class="desktop">
-	  	<table class="table table-bordered table-striped table-responsive">
-			  <thead>
-			    <tr>
-			      <th>Exercise Name</th>
-			      <th>Sets<br /><small><i>(1 set if left blank)</i></small></th>
-			      <th>Reps</th>
-			      <th>Load <br /><small><i>(leave blank if bodyweight)</i></small></th>
-			      <th>Units</th>
-			      <th>Link to Instructions</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <%= f.simple_fields_for :exercise_types, @exercise_types do |builder| %>
-			      <%= render 'exercise_fields_table_desktop', :exercisetype_form => builder %>	
-			    <% end %>
-			  </tbody>
-			</table>
 	  </div>
 
 		<%= f.submit 'Create Workout Routine', :class=>"btn btn-primary", :id=>"routine_submit" %>

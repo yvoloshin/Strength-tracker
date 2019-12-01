@@ -24,8 +24,10 @@ class WorkoutTypesController < ApplicationController
 		
 		@exercise_types.each_with_index do |exercise_type, index|
 			index = index.to_s
-			unit = WeightUnit.find(params[:workout_type][:exercise_types_attributes][index][:weight_unit_id])
-			exercise_type.update(weight_unit: unit)
+			unless params[:workout_type][:exercise_types_attributes][index][:name].empty?
+				unit = WeightUnit.find(params[:workout_type][:exercise_types_attributes][index][:weight_unit_id])
+				exercise_type.update(weight_unit: unit)
+			end
 		end
 
 		if @workout_type.save
